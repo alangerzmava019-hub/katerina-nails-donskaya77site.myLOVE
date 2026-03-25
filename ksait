@@ -84,17 +84,24 @@ img {
   height: 100%;
   pointer-events: none;
   z-index: 0;
+  will-change: transform;
+}
+
+.parallax {
+  position: absolute;
+  will-change: transform;
+  transition: transform 0.1s ease-out;
 }
 
 .lightning {
-  position: absolute;
+  composes: parallax;
   font-size: 24px;
   opacity: 0.18;
   animation: lightningFloat 8s ease-in-out infinite;
 }
 
 .star {
-  position: absolute;
+  composes: parallax;
   font-size: 14px;
   opacity: 0.04;
   animation: twinkle 15s ease-in-out infinite;
@@ -661,10 +668,16 @@ img {
   transform: scale(1.05);
 }
 
-.portfolio-like {
+.portfolio-actions {
   position: absolute;
   bottom: 10px;
   right: 10px;
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+}
+
+.portfolio-like, .portfolio-share {
   background: rgba(255,255,255,0.9);
   border-radius: 50%;
   width: 40px;
@@ -675,11 +688,10 @@ img {
   cursor: pointer;
   transition: all 0.3s ease;
   border: 2px solid var(--primary);
-  z-index: 5;
   -webkit-tap-highlight-color: transparent;
 }
 
-.portfolio-like:active {
+.portfolio-like:active, .portfolio-share:active {
   transform: scale(1.1);
   background: rgba(255,255,255,1);
 }
@@ -693,7 +705,7 @@ img {
   color: white;
 }
 
-.portfolio-like i {
+.portfolio-like i, .portfolio-share i {
   color: var(--primary);
   font-size: 18px;
   transition: all 0.3s ease;
@@ -2367,6 +2379,7 @@ footer {
   .submit-btn:hover,
   .dev-promo-add-btn:hover,
   .portfolio-like:hover,
+  .portfolio-share:hover,
   .expand-portfolio-btn:hover {
     transform: none;
   }
@@ -2381,6 +2394,7 @@ footer {
   .submit-btn:active,
   .dev-promo-add-btn:active,
   .portfolio-like:active,
+  .portfolio-share:active,
   .expand-portfolio-btn:active {
     transform: translateY(-2px);
   }
@@ -2538,7 +2552,7 @@ footer {
           </div>
           
           <div class="master-photo">
-            <img src="https://i.postimg.cc/hjBThm9n/IMG-0059.jpg" alt="Катя - мастер маникюра">
+            <img src="https://i.ibb.co/Qj3b9MXd/IMG-0123.jpg" alt="Katerina Nails Master" border="0">
           </div>
         </div>
         
@@ -2603,6 +2617,7 @@ footer {
       <div class="reviews-section">
         <h2 class="reviews-heading">Отзывы</h2>
         <div class="reviews-display" id="reviews-display">
+          <div class="no-reviews">Пока нет отзывов. Будьте первым!</div>
         </div>
         <button class="show-all-reviews-btn" id="show-all-reviews-btn" style="display: none;">Раскрыть все отзывы</button>
       </div>
@@ -2650,21 +2665,6 @@ footer {
           <strong>WhatsApp</strong><br>+7 988 160 50 58
         </div>
       </a>
-    </div>
-    <div class="promo-section">
-      <h3 style="font-family:'Playfair Display', serif; margin-bottom:15px; font-size:clamp(18px, 5vw, 20px);">Промокоды для скидок</h3>
-      <div class="promo-codes" id="booking-promocodes">
-        <div class="promo-code">FIRSTVISIT<div class="promo-discount">-10%</div></div>
-        <div class="promo-code">GEL5<div class="promo-discount">-5%</div></div>
-        <div class="promo-code">NAILS8<div class="promo-discount">-8%</div></div>
-        <div class="promo-code">LOVE3<div class="promo-discount">-3%</div></div>
-      </div>
-      <p style="margin-top:15px; font-size:14px; color:var(--muted);" id="booking-promo-description">
-        <strong>FIRSTVISIT</strong> - скидка 10% на первое посещение<br>
-        <strong>GEL5</strong> - скидка 5% на гель-лак<br>
-        <strong>NAILS8</strong> - скидка 8% на наращивание<br>
-        <strong>LOVE3</strong> - скидка 3% на любые услуги
-      </p>
     </div>
   </div>
 </div>
@@ -3504,19 +3504,6 @@ function updatePromoCodesForAllUsers() {
             `<strong style="color:var(--primary)">${promo.code}</strong> - скидка ${promo.percent}%<br>`
         ).join('');
     }
-    
-    const bookingPromocodes = document.getElementById('booking-promocodes');
-    const bookingPromoDescription = document.getElementById('booking-promo-description');
-    
-    if (allPromoCodes.length > 0) {
-        bookingPromocodes.innerHTML = allPromoCodes.map(promo => 
-            `<div class="promo-code">${promo.code}<div class="promo-discount">-${promo.percent}%</div></div>`
-        ).join('');
-        
-        bookingPromoDescription.innerHTML = allPromoCodes.map(promo => 
-            `<strong>${promo.code}</strong> - скидка ${promo.percent}%<br>`
-        ).join('');
-    }
 }
 
 function deletePromoCode(code) {
@@ -3759,18 +3746,41 @@ function searchUserInDatabase(query) {
     );
 }
 
+// ===== ФУНКЦИЯ ДЛЯ ГЕНЕРАЦИИ РАНДОМНЫХ ЛАЙКОВ =====
+function generateRandomLikes() {
+    return Math.floor(Math.random() * (150 - 50 + 1)) + 50; // от 50 до 150 включительно
+}
+
 function initPortfolioLikes() {
-    if (!localStorage.getItem('portfolioLikes')) {
-        const defaultLikes = {
-            'IMG-0064.jpg': { likes: 0, userLikes: {} },
-            'IMG-0066.jpg': { likes: 0, userLikes: {} },
-            'IMG-0067.jpg': { likes: 0, userLikes: {} },
-            'IMG-0023.jpg': { likes: 0, userLikes: {} },
-            'IMG-0025.jpg': { likes: 0, userLikes: {} },
-            'IMG-0027.jpg': { likes: 0, userLikes: {} },
-            'IMG-0028.jpg': { likes: 0, userLikes: {} }
-        };
-        localStorage.setItem('portfolioLikes', JSON.stringify(defaultLikes));
+    let portfolioLikes = JSON.parse(localStorage.getItem('portfolioLikes') || '{}');
+    
+    // Словарь с предустановленными значениями для конкретных фотографий
+    const customLikes = {
+        'IMG-9147.jpg': 98,   // 5-я фотка
+        'IMG-9148.jpg': 120,  // 6-я фотка
+        'IMG-9150.jpg': 207   // 7-я фотка
+    };
+    
+    const imageIds = ['IMG-0064.jpg', 'IMG-9146.jpg', 'IMG-9149.jpg', 'IMG-9147.jpg', 'IMG-9148.jpg', 'IMG-9150.jpg', 'IMG-0028.jpg'];
+    let updated = false;
+    
+    imageIds.forEach(id => {
+        if (!portfolioLikes[id]) {
+            // Если лайков для фото нет, создаем с кастомным значением (если есть) или рандомным
+            portfolioLikes[id] = { 
+                likes: customLikes[id] || generateRandomLikes(), 
+                userLikes: {} 
+            };
+            updated = true;
+        } else if (customLikes[id]) {
+            // Если лайки уже есть, но мы хотим принудительно установить кастомные значения для этих фото
+            portfolioLikes[id].likes = customLikes[id];
+            updated = true;
+        }
+    });
+    
+    if (updated) {
+        localStorage.setItem('portfolioLikes', JSON.stringify(portfolioLikes));
     }
 }
 
@@ -3783,18 +3793,18 @@ function displayPortfolio() {
     if (portfolioItems.length === 0) {
         portfolioItems = [
             { src: 'https://i.postimg.cc/g04rPcvB/IMG-0064.jpg', alt: 'Наращивание ногтей', id: 'IMG-0064.jpg' },
-            { src: 'https://i.postimg.cc/25C3JLBM/IMG-0066.jpg', alt: 'Гель-лак дизайн', id: 'IMG-0066.jpg' },
-            { src: 'https://i.postimg.cc/FRMLr2gk/IMG-0067.jpg', alt: 'Маникюр с росписью', id: 'IMG-0067.jpg' },
-            { src: 'https://i.postimg.cc/cJRdP2kC/IMG-0023.jpg', alt: 'Френч маникюр', id: 'IMG-0023.jpg' },
-            { src: 'https://i.postimg.cc/Dzr7RHpZ/IMG-0025.jpg', alt: 'Свадебный маникюр', id: 'IMG-0025.jpg' },
-            { src: 'https://i.postimg.cc/YS6tTZDC/IMG-0027.jpg', alt: 'Вечерний маникюр', id: 'IMG-0027.jpg' },
+            { src: 'https://i.ibb.co/tM64009q/IMG-9146.jpg', alt: 'Нежный дизайн с блестками', id: 'IMG-9146.jpg' },
+            { src: 'https://i.ibb.co/VYTXhSLK/IMG-9149.jpg', alt: 'Яркий красный маникюр', id: 'IMG-9149.jpg' },
+            { src: 'https://i.ibb.co/7dh0cdf9/IMG-9147.jpg', alt: 'Классический френч', id: 'IMG-9147.jpg' },
+            { src: 'https://i.ibb.co/ZpK8VS6w/IMG-9148.jpg', alt: 'Дизайн с цветами', id: 'IMG-9148.jpg' },
+            { src: 'https://i.ibb.co/8ggL8BNn/IMG-9150.jpg', alt: 'Стильный минимализм', id: 'IMG-9150.jpg' },
             { src: 'https://i.postimg.cc/9fdcsKgf/IMG-0028.jpg', alt: 'Повседневный маникюр', id: 'IMG-0028.jpg' }
         ];
         localStorage.setItem('portfolioItems', JSON.stringify(portfolioItems));
     }
     
     portfolioGrid.innerHTML = portfolioItems.map(item => {
-        const likesData = portfolioLikes[item.id] || { likes: 0, userLikes: {} };
+        const likesData = portfolioLikes[item.id] || { likes: generateRandomLikes(), userLikes: {} };
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         const isLiked = currentUser && likesData.userLikes[currentUser.id];
         
@@ -3803,13 +3813,20 @@ function displayPortfolio() {
                 <a href="${item.src}" target="_blank">
                     <img src="${item.src}" alt="${item.alt}" loading="lazy">
                 </a>
-                <div class="portfolio-like ${isLiked ? 'liked' : ''}" onclick="togglePortfolioLike('${item.id}')">
-                    <i class="fas fa-heart"></i>
+                <div class="portfolio-actions">
+                    <div class="portfolio-like ${isLiked ? 'liked' : ''}" onclick="togglePortfolioLike('${item.id}')">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="portfolio-share" onclick="sharePortfolioItem('${item.src}', '${item.alt}')">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
                 </div>
                 <div class="portfolio-likes-count">${likesData.likes}</div>
             </div>
         `;
     }).join('');
+    
+    localStorage.setItem('portfolioLikes', JSON.stringify(portfolioLikes));
 }
 
 function togglePortfolioLike(photoId) {
@@ -3822,7 +3839,7 @@ function togglePortfolioLike(photoId) {
     
     const portfolioLikes = JSON.parse(localStorage.getItem('portfolioLikes') || '{}');
     if (!portfolioLikes[photoId]) {
-        portfolioLikes[photoId] = { likes: 0, userLikes: {} };
+        portfolioLikes[photoId] = { likes: generateRandomLikes(), userLikes: {} };
     }
     
     const likesData = portfolioLikes[photoId];
@@ -3837,6 +3854,23 @@ function togglePortfolioLike(photoId) {
     
     localStorage.setItem('portfolioLikes', JSON.stringify(portfolioLikes));
     displayPortfolio();
+}
+
+function sharePortfolioItem(src, alt) {
+    if (navigator.share) {
+        navigator.share({
+            title: 'Knails ⚡ Портфолио',
+            text: `Посмотри эту классную работу: ${alt}`,
+            url: src,
+        })
+        .catch((error) => console.log('Ошибка шаринга', error));
+    } else {
+        navigator.clipboard.writeText(src).then(() => {
+            alert('Ссылка на изображение скопирована в буфер обмена!');
+        }).catch(() => {
+            alert('Скопируйте ссылку вручную: ' + src);
+        });
+    }
 }
 
 function initPollSystem() {
@@ -4334,6 +4368,124 @@ function clearAllReviews() {
     showSuccessMessage('Все отзывы удалены!');
 }
 
+function displayReviews() {
+    const reviewsDisplay = document.getElementById('reviews-display');
+    const showAllBtn = document.getElementById('show-all-reviews-btn');
+    
+    if (reviews.length === 0) {
+        reviewsDisplay.innerHTML = '<div class="no-reviews">Пока нет отзывов. Будьте первым!</div>';
+        showAllBtn.style.display = 'none';
+        return;
+    }
+    
+    const pinnedReviews = reviews.filter(r => r.pinned);
+    const unpinnedReviews = reviews.filter(r => !r.pinned);
+    
+    const sortedReviews = [...pinnedReviews, ...unpinnedReviews];
+    const displayedReviews = sortedReviews.slice(0, 5);
+    
+    if (sortedReviews.length > 5) {
+        showAllBtn.style.display = 'block';
+        showAllBtn.onclick = showAllReviews;
+    } else {
+        showAllBtn.style.display = 'none';
+    }
+    
+    reviewsDisplay.innerHTML = displayedReviews.map(review => `
+        <div class="review-item ${review.pinned ? 'pinned' : ''}">
+            <div class="review-author">
+                <span style="font-size: 16px; margin-right: 5px;">${review.authorAvatar || '💅'}</span>
+                ${review.author}
+                ${review.pinned ? '<span style="color: var(--accent); margin-left: 5px;">📌</span>' : ''}
+            </div>
+            <div class="review-text">${review.text}</div>
+            ${review.image ? `<img src="${review.image}" style="max-width: 100%; margin-top: 10px; border-radius: 8px;" alt="Review image">` : ''}
+        </div>
+    `).join('');
+}
+
+function showAllReviews() {
+    const reviewsDisplay = document.getElementById('reviews-display');
+    const showAllBtn = document.getElementById('show-all-reviews-btn');
+    
+    const sortedReviews = [...reviews].sort((a, b) => {
+        if (a.pinned && !b.pinned) return -1;
+        if (!a.pinned && b.pinned) return 1;
+        return new Date(b.date) - new Date(a.date);
+    });
+    
+    reviewsDisplay.innerHTML = sortedReviews.map(review => `
+        <div class="review-item ${review.pinned ? 'pinned' : ''}">
+            <div class="review-author">
+                <span style="font-size: 16px; margin-right: 5px;">${review.authorAvatar || '💅'}</span>
+                ${review.author}
+                ${review.pinned ? '<span style="color: var(--accent); margin-left: 5px;">📌</span>' : ''}
+            </div>
+            <div class="review-text">${review.text}</div>
+            ${review.image ? `<img src="${review.image}" style="max-width: 100%; margin-top: 10px; border-radius: 8px;" alt="Review image">` : ''}
+        </div>
+    `).join('');
+    
+    showAllBtn.style.display = 'none';
+}
+
+function addReview(author, text, image = null) {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const authorAvatar = currentUser ? currentUser.avatar : '💅';
+    
+    const newReview = {
+        author: author,
+        text: text,
+        date: new Date().toISOString(),
+        pinned: false,
+        image: image,
+        authorAvatar: authorAvatar
+    };
+    
+    reviews.unshift(newReview);
+    localStorage.setItem("reviews", JSON.stringify(reviews));
+    
+    displayReviews();
+    
+    unlockAchievement('reviewMaster');
+}
+
+document.getElementById('modal-submit-review').addEventListener('click', function() {
+    const name = document.getElementById('modal-review-name').value.trim();
+    const text = document.getElementById('modal-review-text').value.trim();
+    const imageInput = document.getElementById('modal-review-image');
+    const imageFile = imageInput.files[0];
+    
+    if (!name || !text) {
+        alert('Пожалуйста, заполните имя и текст отзыва.');
+        return;
+    }
+    
+    if (imageFile) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            addReview(name, text, e.target.result);
+            document.getElementById('modal-review-success').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('modal-review-success').style.display = 'none';
+                closeReviewModal();
+            }, 1500);
+        };
+        reader.readAsDataURL(imageFile);
+    } else {
+        addReview(name, text);
+        document.getElementById('modal-review-success').style.display = 'block';
+        setTimeout(() => {
+            document.getElementById('modal-review-success').style.display = 'none';
+            closeReviewModal();
+        }, 1500);
+    }
+    
+    document.getElementById('modal-review-name').value = '';
+    document.getElementById('modal-review-text').value = '';
+    imageInput.value = '';
+});
+
 function openManagePortfolioModal() {
     document.getElementById('manage-portfolio-modal').style.display = 'flex';
     loadDevPortfolioList();
@@ -4656,13 +4808,6 @@ function updateAccountInfo() {
         document.getElementById('profile-joined-date').textContent = registrationDate.toLocaleDateString('ru-RU');
         
         const visits = LOYALTY_SYSTEM.visits || 0;
-        let status = "Новичок 💅";
-        if (visits >= 10) status = "Лучшая ✨";
-        else if (visits >= 5) status = "Хорошая клиентка 💋";
-        else if (visits >= 1) status = "Наша клиентка 💖";
-        
-        // Элемент статуса был удален ранее, поэтому убираем эту строку
-        // document.getElementById('profile-status').textContent = status;
     }
 }
 
@@ -4827,7 +4972,7 @@ function initExpandedPortfolio() {
   const container = document.getElementById('expanded-portfolio-grid');
   
   gifData.forEach((gif, index) => {
-    const likes = Math.floor(Math.random() * 151) + 100; // Рандомные лайки от 100 до 250
+    const likes = generateRandomLikes(); // Используем ту же функцию для рандомных лайков
     
     const gifElement = document.createElement('div');
     gifElement.className = 'expanded-portfolio-item';
@@ -4869,7 +5014,8 @@ function createBackgroundElements(){
   
   for(let i=0; i<30; i++){
     const el = document.createElement('div');
-    el.className = 'lightning';
+    el.className = 'lightning parallax';
+    el.setAttribute('data-depth', 0.1 + Math.random() * 0.4); // Глубина от 0.1 до 0.5
     el.style.left = Math.random()*100 + '%';
     el.style.top = Math.random()*100 + '%';
     el.style.animationDelay = (Math.random()*8) + 's';
@@ -4881,8 +5027,54 @@ function createBackgroundElements(){
   const starPos=[{l:'10%',t:'10%',d:'2s',dur:'18s'},{l:'90%',t:'15%',d:'5s',dur:'20s'},{l:'20%',t:'90%',d:'8s',dur:'16s'},{l:'80%',t:'85%',d:'12s',dur:'22s'}];
   const starChars=['★','☆','✦','✧'];
   starPos.forEach((pos,i)=>{
-    const el=document.createElement('div');el.className='star';el.style.left=pos.l;el.style.top=pos.t;el.style.animationDelay=pos.d;el.style.animationDuration=pos.dur;el.textContent=starChars[i];cont.appendChild(el);
+    const el=document.createElement('div');
+    el.className='star parallax';
+    el.setAttribute('data-depth', 0.3 + Math.random() * 0.5); // Глубина от 0.3 до 0.8
+    el.style.left=pos.l;
+    el.style.top=pos.t;
+    el.style.animationDelay=pos.d;
+    el.style.animationDuration=pos.dur;
+    el.textContent=starChars[i];
+    cont.appendChild(el);
   });
+}
+
+// Параллакс эффект при наклоне телефона
+function initParallax() {
+    // Проверяем, мобильное устройство ли это
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (!isMobile) {
+        return; // Не применяем эффект на десктопах
+    }
+    
+    if (window.DeviceOrientationEvent) {
+        window.addEventListener('deviceorientation', function(event) {
+            const gamma = event.gamma; // Наклон влево-вправо (от -90 до 90)
+            const beta = event.beta;   // Наклон вперед-назад (от -180 до 180)
+            
+            if (gamma === null || beta === null) return;
+            
+            // Нормализуем значения, чтобы движение было очень плавным и легким
+            // Ограничиваем значения, чтобы эффект был малозаметным
+            const gammaNorm = Math.max(-15, Math.min(15, gamma)) / 15; // от -1 до 1
+            const betaNorm = Math.max(-10, Math.min(10, beta)) / 10;   // от -1 до 1
+            
+            // Получаем все элементы с классом parallax
+            const parallaxElements = document.querySelectorAll('.parallax');
+            
+            parallaxElements.forEach(el => {
+                const depth = parseFloat(el.getAttribute('data-depth') || '0.2');
+                
+                // Смещение зависит от глубины элемента
+                const moveX = gammaNorm * 5 * depth; // максимум 5px
+                const moveY = betaNorm * 3 * depth;  // максимум 3px
+                
+                // Применяем трансформацию, сохраняя изначальные анимации
+                el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+        }, false);
+    }
 }
 
 function initUI() {
@@ -4902,10 +5094,9 @@ function initUI() {
   initUserDatabase();
   initPollSystem();
   initContestSystem();
-  initPortfolioLikes();
-  initExpandedPortfolio(); // Инициализация расширенного портфолио
+  initPortfolioLikes(); // Инициализация с рандомными лайками
+  initExpandedPortfolio();
   
-  displayReviews();
   displayServices();
   updatePromoCodesForAllUsers();
   loadLoyaltyData();
@@ -4913,11 +5104,14 @@ function initUI() {
   displayCurrentPoll();
   displayContests();
   displayPortfolio();
+  displayReviews(); // Восстанавливаем отображение реальных отзывов
   
   const currentUserData = JSON.parse(localStorage.getItem('currentUser'));
   if (currentUserData && currentUserData.devMode) {
     updateUIForDevMode();
   }
+  
+  initParallax(); // Инициализируем параллакс
 }
 
 function updateUIForLoggedInUser() {
@@ -4933,98 +5127,6 @@ function updateUIForGuest() {
   document.getElementById('auth-menu-text').textContent = 'Вход';
   document.getElementById('account-button').style.display = 'none';
   document.getElementById('auth-button').style.display = 'block';
-}
-
-function displayReviews() {
-  const reviewsDisplay = document.getElementById('reviews-display');
-  const showAllButton = document.getElementById('show-all-reviews-btn');
-  reviewsDisplay.innerHTML = '';
-  
-  if (reviews.length === 0) {
-    reviewsDisplay.innerHTML = '<div class="no-reviews">Пока нет отзывов. Будьте первым!</div>';
-    showAllButton.style.display = 'none';
-    return;
-  }
-  
-  const pinnedReviews = reviews.filter(review => review.pinned);
-  const unpinnedReviews = reviews.filter(review => !review.pinned);
-  
-  let reviewsToShow = [...pinnedReviews, ...unpinnedReviews];
-  
-  if (reviewsToShow.length > 3) {
-    reviewsToShow = reviewsToShow.slice(-3);
-    showAllButton.style.display = 'block';
-    showAllButton.onclick = showAllReviews;
-  } else {
-    showAllButton.style.display = 'none';
-  }
-  
-  reviewsToShow.forEach(review => {
-    const reviewItem = document.createElement('div');
-    reviewItem.className = review.image ? `review-item review-with-photo ${review.pinned ? 'pinned' : ''}` : `review-item ${review.pinned ? 'pinned' : ''}`;
-    
-    const authorAvatar = review.authorAvatar || '💅';
-    
-    reviewItem.innerHTML = `
-      <div class="review-author">
-        <span style="font-size: 16px; margin-right: 8px;">${authorAvatar}</span>
-        ${review.author}
-        ${review.pinned ? '<span class="review-pin-icon">📌</span>' : ''}
-      </div>
-      <div class="review-text">${review.text}</div>
-      ${review.image ? `<img src="${review.image}" class="review-image" alt="Фото отзыва" loading="lazy">` : ''}
-    `;
-    reviewsDisplay.appendChild(reviewItem);
-  });
-}
-
-function showAllReviews() {
-  const reviewsDisplay = document.getElementById('reviews-display');
-  reviewsDisplay.innerHTML = '';
-  
-  const pinnedReviews = reviews.filter(review => review.pinned);
-  const unpinnedReviews = reviews.filter(review => !review.pinned);
-  
-  const allReviews = [...pinnedReviews, ...unpinnedReviews];
-  
-  allReviews.forEach(review => {
-    const reviewItem = document.createElement('div');
-    reviewItem.className = review.image ? `review-item review-with-photo ${review.pinned ? 'pinned' : ''}` : `review-item ${review.pinned ? 'pinned' : ''}`;
-    reviewItem.innerHTML = `
-      <div class="review-author">
-        <span style="font-size: 16px; margin-right: 8px;">${review.authorAvatar || '💅'}</span>
-        ${review.author}
-        ${review.pinned ? '<span class="review-pin-icon">📌</span>' : ''}
-      </div>
-      <div class="review-text">${review.text}</div>
-      ${review.image ? `<img src="${review.image}" class="review-image" alt="Фото отзыва" loading="lazy">` : ''}
-    `;
-    reviewsDisplay.appendChild(reviewItem);
-  });
-  
-  document.getElementById('show-all-reviews-btn').style.display = 'none';
-}
-
-function addReview(author, text, image = null) {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  const authorAvatar = currentUser ? currentUser.avatar : '💅';
-  
-  const newReview = { 
-    author, 
-    text, 
-    image, 
-    date: new Date().toISOString(), 
-    pinned: false,
-    authorAvatar: authorAvatar
-  };
-  reviews.push(newReview);
-  
-  if (reviews.length > 100) {
-    reviews = reviews.slice(-100);
-  }
-  
-  localStorage.setItem("reviews", JSON.stringify(reviews));
-  displayReviews();
 }
 
 const searchInput=document.getElementById('search-input');
@@ -5403,26 +5505,27 @@ document.getElementById('spin-button').addEventListener('click', function() {
 });
 
 function createConfetti() {
-  const colors = ['#d9b6b0', '#e28c8c', '#fff4f2', '#fdf8f6', '#ff69b4', '#8B4513'];
+  const elements = ['🍬', '❤️']; // Конфетки и сердечки
   
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 70; i++) {
     const confetti = document.createElement('div');
     confetti.className = 'confetti';
     confetti.style.left = Math.random() * 100 + 'vw';
-    confetti.style.top = '-10px';
-    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-    confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-    confetti.style.width = Math.random() * 8 + 4 + 'px';
-    confetti.style.height = Math.random() * 8 + 4 + 'px';
+    confetti.style.top = '-20px';
+    confetti.style.fontSize = (Math.random() * 16 + 12) + 'px';
+    confetti.style.width = 'auto';
+    confetti.style.height = 'auto';
+    confetti.style.background = 'transparent';
+    confetti.textContent = elements[Math.floor(Math.random() * elements.length)];
     
     document.body.appendChild(confetti);
     
     const animation = confetti.animate([
-      { top: '-10px', opacity: 1, transform: `rotate(0deg) scale(1)` },
-      { top: '100vh', opacity: 0, transform: `rotate(${Math.random() * 360}deg) scale(0.5)` }
+      { top: '-20px', opacity: 1, transform: `rotate(0deg)` },
+      { top: '100vh', opacity: 0, transform: `rotate(${Math.random() * 360}deg)` }
     ], {
-      duration: Math.random() * 6000 + 4000,
-      easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+      duration: Math.random() * 5000 + 3000,
+      easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
     });
     
     animation.onfinish = () => {
@@ -5459,43 +5562,6 @@ function createHeartAnimation(target){
   }
 }
 
-document.getElementById('modal-submit-review').addEventListener('click', function() {
-  const name = document.getElementById('modal-review-name').value;
-  const text = document.getElementById('modal-review-text').value;
-  const imageInput = document.getElementById('modal-review-image');
-  const imageFile = imageInput.files[0];
-  
-  if (name && text) {
-    if (imageFile) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const imageData = e.target.result;
-        addReview(name, text, imageData);
-        document.getElementById('modal-review-success').style.display = 'block';
-        document.getElementById('modal-review-name').value = '';
-        document.getElementById('modal-review-text').value = '';
-        imageInput.value = '';
-        
-        setTimeout(() => {
-          document.getElementById('modal-review-success').style.display = 'none';
-          closeReviewModal();
-        }, 1500);
-      };
-      reader.readAsDataURL(imageFile);
-    } else {
-      addReview(name, text);
-      document.getElementById('modal-review-success').style.display = 'block';
-      document.getElementById('modal-review-name').value = '';
-      document.getElementById('modal-review-text').value = '';
-      
-      setTimeout(() => {
-        document.getElementById('modal-review-success').style.display = 'none';
-        closeReviewModal();
-      }, 1500);
-    }
-  }
-});
-
 function showSuccessMessage(message) {
   alert(message);
 }
@@ -5529,6 +5595,15 @@ document.addEventListener('DOMContentLoaded', function() {
   initUI();
 });
 
+// ===== АНТИ-КЭШ ДЛЯ ССЫЛОК НА .HTML =====
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll("a").forEach(link => {
+    let href = link.getAttribute("href");
+    if (href && href.endsWith(".html")) {
+      link.href = href + "?v=" + Date.now();
+    }
+  });
+});
 </script>
 </body>
 </html>
