@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -22,15 +23,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 <title>Knails ⚡ — Katerina Nails</title>
 
-<!-- Подключение стилей с хешированием -->
-<link rel="stylesheet" href="style.css?v=1.0.3">
-<!-- Подключение скрипта с хешированием -->
-<script src="script.js?v=1.0.3" defer></script>
-
-<!-- Дополнительные мета-теги для лучшего отображения -->
-<meta name="theme-color" content="#d9b6b0">
-<meta name="msapplication-TileColor" content="#d9b6b0">
-<meta name="msapplication-TileImage" content="https://i.postimg.cc/8PHkzTgX/27394514-5DA8-4C13-8072-537404349281.jpg">
+<!-- Подключение шрифтов и иконок -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
 /* Общие переменные и базовые стили */
@@ -94,14 +89,12 @@ img {
 }
 
 .lightning {
-  composes: parallax;
   font-size: 24px;
   opacity: 0.18;
   animation: lightningFloat 8s ease-in-out infinite;
 }
 
 .star {
-  composes: parallax;
   font-size: 14px;
   opacity: 0.04;
   animation: twinkle 15s ease-in-out infinite;
@@ -724,7 +717,7 @@ img {
   border: 1px solid rgba(217,182,176,0.3);
 }
 
-/* Стили для расширенного портфолио (GIF) */
+/* Расширенное портфолио */
 .expand-portfolio-btn {
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(217,182,176,0.4);
@@ -1029,16 +1022,6 @@ img {
   display: flex;
   flex-direction: column;
   gap: 15px;
-}
-
-#default-promocodes {
-  font-size: clamp(13px, 3.8vw, 14px);
-  line-height: 1.8;
-  text-align: left;
-}
-
-#default-promocodes strong {
-  color: var(--primary);
 }
 
 /* Меню */
@@ -2626,20 +2609,14 @@ footer {
     <aside>
       <div class="paper">
         <div class="contact-card">
-          <h3 style="font-size:clamp(18px, 5vw, 20px);">Промокоды</h3>
-          <div style="margin-top:20px; font-size:14px; color:var(--muted); text-align:left;">
-            <div style="margin-top:5px;" id="default-promocodes">
-              <strong style="color:var(--primary)">FIRSTVISIT</strong> - первое посещение -10%<br>
-              <strong style="color:var(--primary)">GEL5</strong> - гель-лак -5%<br>
-              <strong style="color:var(--primary)">NAILS8</strong> - наращивание -8%<br>
-              <strong style="color:var(--primary)">LOVE3</strong> - любые услуги -3%
-            </div>
-          </div>
-
-          <div id="activated-promos"></div>
-
-          <div style="margin-top:15px; display:flex; gap:10px; justify-content:center;">
-            <button onclick="scrollToSection('portfolio')" style="padding:8px 12px; border-radius:12px; border:1px solid rgba(200,190,185,0.6); background:transparent; color:var(--text); font-weight:600; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.05); font-size:clamp(12px, 3.5vw, 14px);">Портфолио</button>
+          <h3 style="font-size:clamp(18px, 5vw, 20px);">Полезные ссылки</h3>
+          <div style="margin-top:15px; display:flex; flex-direction: column; gap:10px;">
+            <button onclick="scrollToSection('portfolio')" style="padding:10px; border-radius:12px; border:1px solid rgba(200,190,185,0.6); background:transparent; color:var(--text); font-weight:600; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.05); font-size:clamp(14px, 4vw, 16px);">
+              <i class="fas fa-images"></i> Портфолио
+            </button>
+            <button onclick="openBookingModal()" style="padding:10px; border-radius:12px; border:1px solid rgba(200,190,185,0.6); background:transparent; color:var(--text); font-weight:600; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.05); font-size:clamp(14px, 4vw, 16px);">
+              <i class="fas fa-calendar-alt"></i> Записаться
+            </button>
           </div>
         </div>
       </div>
@@ -3092,10 +3069,6 @@ footer {
   <p>Katerina Nails © 2025 — Все права защищены</p>
 </footer>
 
-<!-- Подключение шрифтов и иконок -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
 <script>
 // ===== ОСНОВНЫЕ ПЕРЕМЕННЫЕ =====
 let currentUser = null;
@@ -3191,17 +3164,7 @@ const keys = {
 };
 
 let reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
-let searchData = [
-  {title:"FIRSTVISIT",price:"скидка 10%",type:"промокод",description:"первое посещение"},
-  {title:"GEL5",price:"скидка 5%",type:"промокод",description:"гель-лак"},
-  {title:"NAILS8",price:"скидка 8%",type:"промокод",description:"наращивание"},
-  {title:"LOVE3",price:"скидка 3%",type:"промокод",description:"любые услуги"},
-  {title:"Наращивание",price:"1.900₽",type:"услуга",description:"макс. длина 4"},
-  {title:"Гель-лак",price:"1.500₽",type:"услуга",description:""},
-  {title:"Маникюр без покрытия",price:"800₽",type:"услуга",description:""},
-  {title:"Снятие чужой работы",price:"300₽",type:"услуга",description:""},
-  {title:"Ремонт одного ногтя",price:"200₽",type:"услуга",description:""}
-];
+let searchData = [];
 
 // ===== НОВЫЙ МАССИВ ПРИЗОВ ДЛЯ КОЛЕСА ФОРТУНЫ =====
 const fortunePrizes = [
@@ -3211,6 +3174,17 @@ const fortunePrizes = [
     { name: 'СПА набор', icon: '💆‍♀️🧼', discount: 13, weight: 22, color: '#FFFFFF' },
     { name: 'Сумка "Лонг чамп"', icon: '👜', discount: 15, weight: 5, color: '#A0522D' },
     { name: 'Плюшевая игрушка', icon: '🧸', discount: 12, weight: 10, color: '#808080' }
+];
+
+// ===== НОВЫЙ ПРАЙС =====
+const DEFAULT_SERVICES = [
+    { id: 1, name: 'Наращивание ногтей', description: 'маникюр, наращивание на нижние/верхние формы или гелевые типсы, укрепление жёстким гелем, выравнивание, покрытие.', price: '2.200₽', originalPrice: 2200 },
+    { id: 2, name: 'Гель-лак', description: 'маникюр, выравнивание и укрепление жёстким гелем, покрытие гель-лаком.', price: '1.900₽', originalPrice: 1900 },
+    { id: 3, name: 'Маникюр без покрытия', description: 'комбинированный маникюр, обработка кутикулы, придание формы ногтям, уход.', price: '900₽', originalPrice: 900 },
+    { id: 4, name: 'Снятие чужой работы', description: 'Аккуратное снятие чужой работы', price: '300₽', originalPrice: 300 },
+    { id: 5, name: 'Ремонт одного ногтя', description: 'Восстановление сломанного ногтя.', price: '200₽', originalPrice: 200 },
+    { id: 6, name: 'Любой дизайн', description: 'наклейки, слайдеры, фигурки', price: '+150₽', originalPrice: 150, isExtra: true },
+    { id: 7, name: 'Уход за ручками', description: 'Питательная и увлажняющая маска для мягкости и восстановления сухой кожи рук', price: '+400₽', originalPrice: 400, isExtra: true }
 ];
 
 // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
@@ -3271,6 +3245,7 @@ function updateUIForDevMode() {
 
 function showDevPromoPanel() {
     const activatedPromosContainer = document.getElementById('activated-promos');
+    if(!activatedPromosContainer) return;
     const devPanelHTML = `
         <div class="dev-promo-panel">
             <div class="dev-promo-header">
@@ -3337,6 +3312,7 @@ function showDevPortfolioPanel() {
 function loadDevPortfolioList() {
     const portfolioItems = JSON.parse(localStorage.getItem('portfolioItems') || '[]');
     const devPortfolioList = document.getElementById('dev-portfolio-list');
+    if(!devPortfolioList) return;
     
     if (portfolioItems.length === 0) {
         devPortfolioList.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--muted);">Нет элементов в портфолио</div>';
@@ -3435,6 +3411,7 @@ function deletePortfolioItem(index) {
 function loadDevPromoList() {
     const allPromoCodes = JSON.parse(localStorage.getItem('allPromoCodes') || '[]');
     const devPromoList = document.getElementById('dev-promo-list');
+    if(!devPromoList) return;
     
     if (allPromoCodes.length === 0) {
         devPromoList.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--muted);">Нет активных промокодов</div>';
@@ -3499,10 +3476,14 @@ function updatePromoCodesForAllUsers() {
     const allPromoCodes = JSON.parse(localStorage.getItem('allPromoCodes') || '[]');
     
     const defaultPromocodes = document.getElementById('default-promocodes');
-    if (allPromoCodes.length > 0) {
-        defaultPromocodes.innerHTML = allPromoCodes.map(promo => 
-            `<strong style="color:var(--primary)">${promo.code}</strong> - скидка ${promo.percent}%<br>`
-        ).join('');
+    if (defaultPromocodes) {
+        if (allPromoCodes.length > 0) {
+            defaultPromocodes.innerHTML = allPromoCodes.map(promo => 
+                `<strong style="color:var(--primary)">${promo.code}</strong> - скидка ${promo.percent}%<br>`
+            ).join('');
+        } else {
+            defaultPromocodes.innerHTML = 'Промокодов пока нет';
+        }
     }
 }
 
@@ -3523,13 +3504,7 @@ function loadServices() {
     let services = JSON.parse(localStorage.getItem('services'));
     
     if (!services) {
-        services = [
-            { id: 1, name: 'Наращивание', description: '(макс. длина 4)', price: '1.900₽', originalPrice: 1900 },
-            { id: 2, name: 'Гель-лак', description: '', price: '1.500₽', originalPrice: 1500 },
-            { id: 3, name: 'Маникюр без покрытия', description: '', price: '800₽', originalPrice: 800 },
-            { id: 4, name: 'Снятие чужой работы', description: '', price: '300₽', originalPrice: 300 },
-            { id: 5, name: 'Ремонт одного ногтя', description: '', price: '200₽', originalPrice: 200 }
-        ];
+        services = [...DEFAULT_SERVICES];
         localStorage.setItem('services', JSON.stringify(services));
     }
     
@@ -3560,7 +3535,7 @@ function displayServices() {
 }
 
 function updateSearchData(services) {
-    searchData = searchData.filter(item => item.type !== 'услуга');
+    searchData = [];
     
     services.forEach(service => {
         searchData.push({
@@ -3568,6 +3543,16 @@ function updateSearchData(services) {
             price: service.price,
             type: 'услуга',
             description: service.description
+        });
+    });
+    
+    const allPromoCodes = JSON.parse(localStorage.getItem('allPromoCodes') || '[]');
+    allPromoCodes.forEach(promo => {
+        searchData.push({
+            title: promo.code,
+            price: `скидка ${promo.percent}%`,
+            type: 'промокод',
+            description: ''
         });
     });
 }
@@ -3748,17 +3733,16 @@ function searchUserInDatabase(query) {
 
 // ===== ФУНКЦИЯ ДЛЯ ГЕНЕРАЦИИ РАНДОМНЫХ ЛАЙКОВ =====
 function generateRandomLikes() {
-    return Math.floor(Math.random() * (150 - 50 + 1)) + 50; // от 50 до 150 включительно
+    return Math.floor(Math.random() * (150 - 50 + 1)) + 50;
 }
 
 function initPortfolioLikes() {
     let portfolioLikes = JSON.parse(localStorage.getItem('portfolioLikes') || '{}');
     
-    // Словарь с предустановленными значениями для конкретных фотографий
     const customLikes = {
-        'IMG-9147.jpg': 98,   // 5-я фотка
-        'IMG-9148.jpg': 120,  // 6-я фотка
-        'IMG-9150.jpg': 207   // 7-я фотка
+        'IMG-9147.jpg': 98,
+        'IMG-9148.jpg': 120,
+        'IMG-9150.jpg': 207
     };
     
     const imageIds = ['IMG-0064.jpg', 'IMG-9146.jpg', 'IMG-9149.jpg', 'IMG-9147.jpg', 'IMG-9148.jpg', 'IMG-9150.jpg', 'IMG-0028.jpg'];
@@ -3766,14 +3750,12 @@ function initPortfolioLikes() {
     
     imageIds.forEach(id => {
         if (!portfolioLikes[id]) {
-            // Если лайков для фото нет, создаем с кастомным значением (если есть) или рандомным
             portfolioLikes[id] = { 
                 likes: customLikes[id] || generateRandomLikes(), 
                 userLikes: {} 
             };
             updated = true;
         } else if (customLikes[id]) {
-            // Если лайки уже есть, но мы хотим принудительно установить кастомные значения для этих фото
             portfolioLikes[id].likes = customLikes[id];
             updated = true;
         }
@@ -4927,52 +4909,23 @@ function toggleAchievements() {
 // ===== ФУНКЦИИ ДЛЯ РАСШИРЕННОГО ПОРТФОЛИО =====
 function initExpandedPortfolio() {
   const gifData = [
-    {
-      url: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2tpanY2OHJqcWVlYm41bDc1Z3ZtcnU5YXNiZmhrMmh5eXJrNGY0byZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CQjqRjkocYN3lXEs64/giphy.gif",
-      text: "Делай красоту ✨"
-    },
-    {
-      url: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExeXpmcWVzNjRlcDltMzFpNzJlOHpsbWFxcGRlZnZ0dG5jc2NscGdmbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/q6CwIzg4gnlwAXmsQZ/giphy.gif",
-      text: "Мы творим мечты😘"
-    },
-    {
-      url: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDA2Ym5xa3plZHYyZ2EwaWN3MWJhNGtkMmV0eWF6ZXdhd3BxamtuYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vdn5w5o2QJMkLFc716/giphy.gif",
-      text: "Катя-мастер наш))"
-    },
-    {
-      url: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMnByeXl1cHJ4d2NvYnJ5emZjeWp2MGN1eW13bjFweWxkN2tmc2d3bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/rhU6pAWsICtaCQYLKx/giphy.gif",
-      text: "Ты сегодня такая обонятельная ❤️‍🔥"
-    },
-    {
-      url: "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExd3U1YjJ6NmVodjMyb290Y2wxajNjeWk4NDB6emtlNmJyY3lyeDFrMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7p21SHWTqoxEcaFJYg/giphy.gif",
-      text: "Не стесняйся трендов 🤩"
-    },
-    {
-      url: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExaWFhaWFyZmhrdzlteHlya2lqbjBkcTJncWE1NDNxdTgxY3V0cDFtdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Whyb9UVS4zr4lhKbw3/giphy.gif",
-      text: "Будь смелее 🫶"
-    },
-    {
-      url: "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTRrcm0zMjh1bzgzcDM1ZGlqcmVjaTV2NXcwZTllejJpa3p5bmhrbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Xfc9nutdG79QOinWYO/giphy.gif",
-      text: "Идеальная герл❤️…"
-    },
-    {
-      url: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWI0bTZlYmI4MGtjYjd0Y2J0MHAyMzd4dGlseXB4ZzZsOXQ5emMzMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/tNehO05LNWvRvIGIyi/giphy.gif",
-      text: "Создай Дизайн мечты 💋"
-    },
-    {
-      url: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHZ6bmhpMDBkN2lrMmU1Njd6bmlpd3U1MW5wMHlkb3U5MmQwNXpibyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t6EgujV8rHxYDdyc6C/giphy.gif",
-      text: "Делаем добро 🫀"
-    },
-    {
-      url: "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZm40N3FuNnViZ3ptZm1qbWhtcnl0eDVka3ZkdXEwN2VqNDhqd3RyZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/78Mv9DpLZ2Y0weKIsD/giphy.gif",
-      text: "Бюти герл 💅 Ты необыкновенная 👑"
-    }
+    { url: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2tpanY2OHJqcWVlYm41bDc1Z3ZtcnU5YXNiZmhrMmh5eXJrNGY0byZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CQjqRjkocYN3lXEs64/giphy.gif", text: "Делай красоту ✨" },
+    { url: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExeXpmcWVzNjRlcDltMzFpNzJlOHpsbWFxcGRlZnZ0dG5jc2NscGdmbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/q6CwIzg4gnlwAXmsQZ/giphy.gif", text: "Мы творим мечты😘" },
+    { url: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDA2Ym5xa3plZHYyZ2EwaWN3MWJhNGtkMmV0eWF6ZXdhd3BxamtuYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vdn5w5o2QJMkLFc716/giphy.gif", text: "Катя-мастер наш))" },
+    { url: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMnByeXl1cHJ4d2NvYnJ5emZjeWp2MGN1eW13bjFweWxkN2tmc2d3bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/rhU6pAWsICtaCQYLKx/giphy.gif", text: "Ты сегодня такая обонятельная ❤️‍🔥" },
+    { url: "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExd3U1YjJ6NmVodjMyb290Y2wxajNjeWk4NDB6emtlNmJyY3lyeDFrMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7p21SHWTqoxEcaFJYg/giphy.gif", text: "Не стесняйся трендов 🤩" },
+    { url: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExaWFhaWFyZmhrdzlteHlya2lqbjBkcTJncWE1NDNxdTgxY3V0cDFtdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Whyb9UVS4zr4lhKbw3/giphy.gif", text: "Будь смелее 🫶" },
+    { url: "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTRrcm0zMjh1bzgzcDM1ZGlqcmVjaTV2NXcwZTllejJpa3p5bmhrbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Xfc9nutdG79QOinWYO/giphy.gif", text: "Идеальная герл❤️…" },
+    { url: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWI0bTZlYmI4MGtjYjd0Y2J0MHAyMzd4dGlseXB4ZzZsOXQ5emMzMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/tNehO05LNWvRvIGIyi/giphy.gif", text: "Создай Дизайн мечты 💋" },
+    { url: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHZ6bmhpMDBkN2lrMmU1Njd6bmlpd3U1MW5wMHlkb3U5MmQwNXpibyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t6EgujV8rHxYDdyc6C/giphy.gif", text: "Делаем добро 🫀" },
+    { url: "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZm40N3FuNnViZ3ptZm1qbWhtcnl0eDVka3ZkdXEwN2VqNDhqd3RyZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/78Mv9DpLZ2Y0weKIsD/giphy.gif", text: "Бюти герл 💅 Ты необыкновенная 👑" }
   ];
 
   const container = document.getElementById('expanded-portfolio-grid');
+  container.innerHTML = '';
   
   gifData.forEach((gif, index) => {
-    const likes = generateRandomLikes(); // Используем ту же функцию для рандомных лайков
+    const likes = generateRandomLikes();
     
     const gifElement = document.createElement('div');
     gifElement.className = 'expanded-portfolio-item';
@@ -5015,7 +4968,7 @@ function createBackgroundElements(){
   for(let i=0; i<30; i++){
     const el = document.createElement('div');
     el.className = 'lightning parallax';
-    el.setAttribute('data-depth', 0.1 + Math.random() * 0.4); // Глубина от 0.1 до 0.5
+    el.setAttribute('data-depth', 0.1 + Math.random() * 0.4);
     el.style.left = Math.random()*100 + '%';
     el.style.top = Math.random()*100 + '%';
     el.style.animationDelay = (Math.random()*8) + 's';
@@ -5029,7 +4982,7 @@ function createBackgroundElements(){
   starPos.forEach((pos,i)=>{
     const el=document.createElement('div');
     el.className='star parallax';
-    el.setAttribute('data-depth', 0.3 + Math.random() * 0.5); // Глубина от 0.3 до 0.8
+    el.setAttribute('data-depth', 0.3 + Math.random() * 0.5);
     el.style.left=pos.l;
     el.style.top=pos.t;
     el.style.animationDelay=pos.d;
@@ -5039,38 +4992,22 @@ function createBackgroundElements(){
   });
 }
 
-// Параллакс эффект при наклоне телефона
 function initParallax() {
-    // Проверяем, мобильное устройство ли это
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
-    if (!isMobile) {
-        return; // Не применяем эффект на десктопах
-    }
+    if (!isMobile) return;
     
     if (window.DeviceOrientationEvent) {
         window.addEventListener('deviceorientation', function(event) {
-            const gamma = event.gamma; // Наклон влево-вправо (от -90 до 90)
-            const beta = event.beta;   // Наклон вперед-назад (от -180 до 180)
-            
+            const gamma = event.gamma;
+            const beta = event.beta;
             if (gamma === null || beta === null) return;
-            
-            // Нормализуем значения, чтобы движение было очень плавным и легким
-            // Ограничиваем значения, чтобы эффект был малозаметным
-            const gammaNorm = Math.max(-15, Math.min(15, gamma)) / 15; // от -1 до 1
-            const betaNorm = Math.max(-10, Math.min(10, beta)) / 10;   // от -1 до 1
-            
-            // Получаем все элементы с классом parallax
+            const gammaNorm = Math.max(-15, Math.min(15, gamma)) / 15;
+            const betaNorm = Math.max(-10, Math.min(10, beta)) / 10;
             const parallaxElements = document.querySelectorAll('.parallax');
-            
             parallaxElements.forEach(el => {
                 const depth = parseFloat(el.getAttribute('data-depth') || '0.2');
-                
-                // Смещение зависит от глубины элемента
-                const moveX = gammaNorm * 5 * depth; // максимум 5px
-                const moveY = betaNorm * 3 * depth;  // максимум 3px
-                
-                // Применяем трансформацию, сохраняя изначальные анимации
+                const moveX = gammaNorm * 5 * depth;
+                const moveY = betaNorm * 3 * depth;
                 el.style.transform = `translate(${moveX}px, ${moveY}px)`;
             });
         }, false);
@@ -5083,7 +5020,6 @@ function initUI() {
     const userData = JSON.parse(savedUser);
     currentUser = userData.username;
     isLoggedIn = true;
-    
     updateUIForLoggedInUser();
     updateAccountInfo();
   } else {
@@ -5094,7 +5030,7 @@ function initUI() {
   initUserDatabase();
   initPollSystem();
   initContestSystem();
-  initPortfolioLikes(); // Инициализация с рандомными лайками
+  initPortfolioLikes();
   initExpandedPortfolio();
   
   displayServices();
@@ -5104,14 +5040,14 @@ function initUI() {
   displayCurrentPoll();
   displayContests();
   displayPortfolio();
-  displayReviews(); // Восстанавливаем отображение реальных отзывов
+  displayReviews();
   
   const currentUserData = JSON.parse(localStorage.getItem('currentUser'));
   if (currentUserData && currentUserData.devMode) {
     updateUIForDevMode();
   }
   
-  initParallax(); // Инициализируем параллакс
+  initParallax();
 }
 
 function updateUIForLoggedInUser() {
@@ -5189,7 +5125,6 @@ function dragStart(e) {
 
   if (e.target === draggableMenu || e.target === document.getElementById('menu-button')) {
     isDragging = true;
-    
     document.getElementById('menu-dropdown').style.display = 'none';
   }
 }
@@ -5200,7 +5135,6 @@ document.addEventListener("touchmove", drag);
 function drag(e) {
   if (isDragging) {
     e.preventDefault();
-    
     if (e.type === "touchmove") {
       currentX = e.touches[0].clientX - initialX;
       currentY = e.touches[0].clientY - initialY;
@@ -5208,10 +5142,8 @@ function drag(e) {
       currentX = e.clientX - initialX;
       currentY = e.clientY - initialY;
     }
-
     xOffset = currentX;
     yOffset = currentY;
-
     setTranslate(currentX, currentY, draggableMenu);
   }
 }
@@ -5254,122 +5186,32 @@ document.addEventListener('click', function() {
   menuDropdown.style.display = 'none';
 });
 
-authButton.addEventListener('click', function() {
-  menuDropdown.style.display = 'none';
-  openAuthModal();
-});
+authButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openAuthModal(); });
+accountButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openAccountModal(); });
+fortuneButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openFortuneModal(); });
+reviewButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openReviewModal(); });
+promoButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openPromoModal(); });
+pollsButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openPollsModal(); });
+contestsButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openContestsModal(); });
+pricesButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openPricesModal(); });
+searchUserButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openSearchUserModal(); });
+managePollsButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openManagePollsModal(); });
+manageContestsButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openManageContestsModal(); });
+manageReviewsButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openManageReviewsModal(); });
+managePortfolioButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openManagePortfolioModal(); });
 
-accountButton.addEventListener('click', function() {
-  menuDropdown.style.display = 'none';
-  openAccountModal();
-});
+function openAuthModal() { if (isLoggedIn) { alert(`Вы уже авторизованы как ${currentUser}`); return; } document.getElementById('auth-modal').style.display = 'flex'; }
+function closeAuthModal() { document.getElementById('auth-modal').style.display = 'none'; }
+function openAccountModal() { document.getElementById('account-modal').style.display = 'flex'; }
+function closeAccountModal() { document.getElementById('account-modal').style.display = 'none'; }
+function openPollsModal() { document.getElementById('polls-modal').style.display = 'flex'; }
+function closePollsModal() { document.getElementById('polls-modal').style.display = 'none'; }
+function openContestsModal() { document.getElementById('contests-modal').style.display = 'flex'; }
+function closeContestsModal() { document.getElementById('contests-modal').style.display = 'none'; }
+function openSearchUserModal() { document.getElementById('search-user-modal').style.display = 'flex'; }
+function closeSearchUserModal() { document.getElementById('search-user-modal').style.display = 'none'; }
 
-fortuneButton.addEventListener('click', function() {
-  menuDropdown.style.display = 'none';
-  openFortuneModal();
-});
-
-reviewButton.addEventListener('click', function() {
-  menuDropdown.style.display = 'none';
-  openReviewModal();
-});
-
-promoButton.addEventListener('click', function() {
-  menuDropdown.style.display = 'none';
-  openPromoModal();
-});
-
-pollsButton.addEventListener('click', function() {
-  menuDropdown.style.display = 'none';
-  openPollsModal();
-});
-
-contestsButton.addEventListener('click', function() {
-  menuDropdown.style.display = 'none';
-  openContestsModal();
-});
-
-pricesButton.addEventListener('click', function() {
-  menuDropdown.style.display = 'none';
-  openPricesModal();
-});
-
-searchUserButton.addEventListener('click', function() {
-  menuDropdown.style.display = 'none';
-  openSearchUserModal();
-});
-
-managePollsButton.addEventListener('click', function() {
-  menuDropdown.style.display = 'none';
-  openManagePollsModal();
-});
-
-manageContestsButton.addEventListener('click', function() {
-  menuDropdown.style.display = 'none';
-  openManageContestsModal();
-});
-
-manageReviewsButton.addEventListener('click', function() {
-  menuDropdown.style.display = 'none';
-  openManageReviewsModal();
-});
-
-managePortfolioButton.addEventListener('click', function() {
-  menuDropdown.style.display = 'none';
-  openManagePortfolioModal();
-});
-
-function openAuthModal() {
-  if (isLoggedIn) {
-    alert(`Вы уже авторизованы как ${currentUser}`);
-    return;
-  }
-  document.getElementById('auth-modal').style.display = 'flex';
-}
-
-function closeAuthModal() {
-  document.getElementById('auth-modal').style.display = 'none';
-}
-
-function openAccountModal() {
-  document.getElementById('account-modal').style.display = 'flex';
-}
-
-function closeAccountModal() {
-  document.getElementById('account-modal').style.display = 'none';
-}
-
-function openPollsModal() {
-  document.getElementById('polls-modal').style.display = 'flex';
-}
-
-function closePollsModal() {
-  document.getElementById('polls-modal').style.display = 'none';
-}
-
-function openContestsModal() {
-  document.getElementById('contests-modal').style.display = 'flex';
-}
-
-function closeContestsModal() {
-  document.getElementById('contests-modal').style.display = 'none';
-}
-
-function openSearchUserModal() {
-  document.getElementById('search-user-modal').style.display = 'flex';
-}
-
-function closeSearchUserModal() {
-  document.getElementById('search-user-modal').style.display = 'none';
-}
-
-function logout() {
-  currentUser = null;
-  isLoggedIn = false;
-  localStorage.removeItem("currentUser");
-  updateUIForGuest();
-  alert("Вы вышли из системы");
-}
+function logout() { currentUser = null; isLoggedIn = false; localStorage.removeItem("currentUser"); updateUIForGuest(); alert("Вы вышли из системы"); }
 
 function openFortuneModal() {
   document.getElementById('fortune-modal').style.display = 'flex';
@@ -5383,130 +5225,68 @@ function openFortuneModal() {
   }
 }
 
-function closeFortuneModal() {
-  document.getElementById('fortune-modal').style.display = 'none';
-  document.getElementById('wheel-inner').style.transform = 'rotate(0deg)';
-  document.getElementById('result-message').style.display = 'none';
-  document.getElementById('spin-button').disabled = false;
-  document.getElementById('spin-button').style.display = 'block';
-  document.getElementById('claim-button').style.display = 'none';
-}
+function closeFortuneModal() { document.getElementById('fortune-modal').style.display = 'none'; document.getElementById('wheel-inner').style.transform = 'rotate(0deg)'; document.getElementById('result-message').style.display = 'none'; document.getElementById('spin-button').disabled = false; document.getElementById('spin-button').style.display = 'block'; document.getElementById('claim-button').style.display = 'none'; }
 
 function openPrizeModal(prize) {
   document.getElementById('prize-icon').textContent = prize.icon;
   document.getElementById('prize-description').textContent = `Вы выиграли: ${prize.name} (скидка ${prize.discount}%)`;
-  
   const exchangeButton = document.getElementById('exchange-prize-button');
   const discountSpan = document.getElementById('exchange-discount-value');
   discountSpan.textContent = prize.discount + '%';
-  
-  exchangeButton.onclick = function() {
-    exchangePrizeForDiscount(prize.discount);
-  };
-  
+  exchangeButton.onclick = function() { exchangePrizeForDiscount(prize.discount); };
   document.getElementById('prize-modal').style.display = 'flex';
 }
 
-function closePrizeModal() {
-  document.getElementById('prize-modal').style.display = 'none';
-  closeFortuneModal();
-}
-
-function exchangePrizeForDiscount(discount) {
-    alert(`🎉 Поздравляем! Вы обменяли подарок на скидку ${discount}%! (В реальном проекте здесь будет логика применения скидки)`);
-    closePrizeModal();
-}
-
-function openReviewModal() {
-  document.getElementById('review-modal').style.display = 'flex';
-}
-
-function closeReviewModal() {
-  document.getElementById('review-modal').style.display = 'none';
-  document.getElementById('modal-review-success').style.display = 'none';
-}
-
-function openPromoModal() {
-  document.getElementById('promo-modal').style.display = 'flex';
-}
-
-function closePromoModal() {
-  document.getElementById('promo-modal').style.display = 'none';
-}
+function closePrizeModal() { document.getElementById('prize-modal').style.display = 'none'; closeFortuneModal(); }
+function exchangePrizeForDiscount(discount) { alert(`🎉 Поздравляем! Вы обменяли подарок на скидку ${discount}%! (В реальном проекте здесь будет логика применения скидки)`); closePrizeModal(); }
+function openReviewModal() { document.getElementById('review-modal').style.display = 'flex'; }
+function closeReviewModal() { document.getElementById('review-modal').style.display = 'none'; document.getElementById('modal-review-success').style.display = 'none'; }
+function openPromoModal() { document.getElementById('promo-modal').style.display = 'flex'; }
+function closePromoModal() { document.getElementById('promo-modal').style.display = 'none'; }
 
 function createWheel() {
   const wheelInner = document.getElementById('wheel-inner');
   wheelInner.innerHTML = '';
-  
   let currentAngle = 0;
   const angleStep = 360 / fortunePrizes.length;
-  
   fortunePrizes.forEach((prize) => {
     const segment = document.createElement('div');
     segment.className = 'wheel-segment';
     segment.style.backgroundColor = prize.color;
     segment.style.transform = `rotate(${currentAngle}deg)`;
-    
     const content = document.createElement('div');
     content.className = 'segment-content';
     content.innerHTML = `${prize.icon}<br><span style="font-size:12px;">${prize.name}</span><span class="segment-discount">скидка ${prize.discount}%</span>`;
-    
     segment.appendChild(content);
     wheelInner.appendChild(segment);
-    
     currentAngle += angleStep;
   });
 }
 
 document.getElementById('spin-button').addEventListener('click', function() {
-  if (!isLoggedIn) {
-    alert("Для использования колеса фортуны необходимо авторизоваться!");
-    openAuthModal();
-    return;
-  }
-  
+  if (!isLoggedIn) { alert("Для использования колеса фортуны необходимо авторизоваться!"); openAuthModal(); return; }
   const spinButton = document.getElementById('spin-button');
-  const claimButton = document.getElementById('claim-button');
   const wheelInner = document.getElementById('wheel-inner');
-  const resultMessage = document.getElementById('result-message');
-  
   spinButton.disabled = true;
-  
   const totalWeight = fortunePrizes.reduce((sum, prize) => sum + prize.weight, 0);
-  
   let randomValue = Math.random() * totalWeight;
   let selectedPrizeIndex = 0;
   let weightSum = 0;
-  
   for (let i = 0; i < fortunePrizes.length; i++) {
     weightSum += fortunePrizes[i].weight;
-    if (randomValue <= weightSum) {
-      selectedPrizeIndex = i;
-      break;
-    }
+    if (randomValue <= weightSum) { selectedPrizeIndex = i; break; }
   }
-  
   const segmentAngle = 360 / fortunePrizes.length;
   const spins = 5 + Math.floor(Math.random() * 5);
   const finalAngle = spins * 360 + (360 - (selectedPrizeIndex * segmentAngle + segmentAngle / 2));
-  
   const duration = 4000 + Math.random() * 2000;
-  
   wheelInner.style.transition = `transform ${duration/1000}s cubic-bezier(0.2, 0.8, 0.3, 1)`;
   wheelInner.style.transform = `rotate(${finalAngle}deg)`;
-  
-  setTimeout(() => {
-    openPrizeModal(fortunePrizes[selectedPrizeIndex]);
-    
-    createConfetti();
-    
-    addLoyaltyPoints(30, 'Выигрыш в колесе фортуны');
-  }, duration);
+  setTimeout(() => { openPrizeModal(fortunePrizes[selectedPrizeIndex]); createConfetti(); addLoyaltyPoints(30, 'Выигрыш в колесе фортуны'); }, duration);
 });
 
 function createConfetti() {
-  const elements = ['🍬', '❤️']; // Конфетки и сердечки
-  
+  const elements = ['🍬', '❤️'];
   for (let i = 0; i < 70; i++) {
     const confetti = document.createElement('div');
     confetti.className = 'confetti';
@@ -5517,20 +5297,12 @@ function createConfetti() {
     confetti.style.height = 'auto';
     confetti.style.background = 'transparent';
     confetti.textContent = elements[Math.floor(Math.random() * elements.length)];
-    
     document.body.appendChild(confetti);
-    
     const animation = confetti.animate([
       { top: '-20px', opacity: 1, transform: `rotate(0deg)` },
       { top: '100vh', opacity: 0, transform: `rotate(${Math.random() * 360}deg)` }
-    ], {
-      duration: Math.random() * 5000 + 3000,
-      easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
-    });
-    
-    animation.onfinish = () => {
-      confetti.remove();
-    };
+    ], { duration: Math.random() * 5000 + 3000, easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)' });
+    animation.onfinish = () => confetti.remove();
   }
 }
 
@@ -5545,64 +5317,39 @@ function checkPromo(){
     div.style.animationDelay = `${idx*0.1}s`;
     div.textContent = fortunePrizes[i].name + ' - скидка ' + fortunePrizes[i].discount + '%';
     promoBox.appendChild(div);
-    createHeartAnimation(div);
+    for(let j=0;j<3;j++){
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.textContent = '💖';
+      heart.style.left = (Math.random()*80+10)+'%';
+      heart.style.bottom = '0px';
+      heart.style.animationDuration = '2s';
+      div.appendChild(heart);
+      setTimeout(() => heart.remove(), 2000);
+    }
   });
 }
 
-function createHeartAnimation(target){
-  for(let j=0;j<3;j++){
-    const heart = document.createElement('div');
-    heart.className = 'heart';
-    heart.textContent = '💖';
-    heart.style.left = (Math.random()*80+10)+'%';
-    heart.style.bottom = '0px';
-    heart.style.animationDuration = '2s';
-    target.appendChild(heart);
-    setTimeout(() => heart.remove(), 2000);
-  }
-}
-
-function showSuccessMessage(message) {
-  alert(message);
-}
+function showSuccessMessage(message) { alert(message); }
 
 // ===== ИНИЦИАЛИЗАЦИЯ ВЫБОРА АВАТАРА =====
 document.addEventListener('DOMContentLoaded', function() {
   const avatarOptions = document.querySelectorAll('#avatar-selection .avatar-option');
   avatarOptions.forEach(option => {
     option.addEventListener('click', function() {
-      avatarOptions.forEach(opt => {
-        opt.classList.remove('selected');
-      });
+      avatarOptions.forEach(opt => opt.classList.remove('selected'));
       this.classList.add('selected');
     });
   });
-  
   const avatarOptionsModal = document.querySelectorAll('#avatar-selection-modal .avatar-option');
   avatarOptionsModal.forEach(option => {
     option.addEventListener('click', function() {
-      avatarOptionsModal.forEach(opt => {
-        opt.classList.remove('selected');
-      });
+      avatarOptionsModal.forEach(opt => opt.classList.remove('selected'));
       this.classList.add('selected');
     });
   });
-});
-
-// ===== ЗАПУСК ПРИЛОЖЕНИЯ =====
-document.addEventListener('DOMContentLoaded', function() {
   createBackgroundElements();
   initUI();
-});
-
-// ===== АНТИ-КЭШ ДЛЯ ССЫЛОК НА .HTML =====
-document.addEventListener("DOMContentLoaded", function() {
-  document.querySelectorAll("a").forEach(link => {
-    let href = link.getAttribute("href");
-    if (href && href.endsWith(".html")) {
-      link.href = href + "?v=" + Date.now();
-    }
-  });
 });
 </script>
 </body>
