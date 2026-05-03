@@ -69,6 +69,10 @@ img {
   border-radius: var(--radius);
 }
 
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
+}
+
 /* Фоновые элементы */
 .lightning-bg {
   position: fixed;
@@ -1308,7 +1312,7 @@ img {
   transform: scale(1.1);
 }
 
-/* Колесо фортуны */
+/* Колесо фортуны - УВЕЛИЧЕННЫЙ РАЗМЕР И УЛУЧШЕННЫЙ ТЕКСТ */
 .fortune-wheel-container {
   display: flex;
   flex-direction: column;
@@ -1319,12 +1323,12 @@ img {
 }
 
 .fortune-wheel {
-  width: min(280px, 80vw);
-  height: min(280px, 80vw);
+  width: min(380px, 85vw);
+  height: min(380px, 85vw);
   position: relative;
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
   border: 6px solid var(--primary);
 }
 
@@ -1348,19 +1352,20 @@ img {
 
 .segment-content {
   position: absolute;
-  width: 90px;
+  width: 120px;
   text-align: center;
   transform: rotate(45deg);
   font-weight: 600;
   color: white;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-  font-size: clamp(10px, 2.8vw, 12px);
-  line-height: 1.2;
-  padding: 3px;
+  font-size: clamp(11px, 2.6vw, 13px);
+  line-height: 1.3;
+  padding: 5px;
+  word-break: break-word;
 }
 
 .segment-discount {
-  font-size: clamp(8px, 2.2vw, 10px);
+  font-size: clamp(9px, 2.2vw, 11px);
   opacity: 0.9;
   display: block;
   margin-top: 2px;
@@ -1371,8 +1376,8 @@ img {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   background: white;
   border-radius: 50%;
   z-index: 10;
@@ -1380,18 +1385,18 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 28px;
   color: var(--text);
   border: 3px solid var(--text);
 }
 
 .wheel-pointer {
   position: absolute;
-  top: 45%;
-  left: 5px;
+  top: 40%;
+  left: -15px;
   transform: translateY(-50%) rotate(90deg);
-  width: 25px;
-  height: 30px;
+  width: 30px;
+  height: 35px;
   background: #000000;
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
   z-index: 15;
@@ -2303,16 +2308,6 @@ footer {
     grid-template-columns: repeat(6, 1fr);
   }
   
-  .fortune-wheel {
-    width: 350px;
-    height: 350px;
-  }
-  
-  .segment-content {
-    width: 120px;
-    font-size: 12px;
-  }
-
   .expanded-portfolio-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -2653,8 +2648,8 @@ footer {
     
     <div class="auth-form-extended">
       <div class="form-group">
-        <label for="username">Никнейм</label>
-        <input type="text" id="username" placeholder="Придумайте уникальный никнейм">
+        <label for="username">Никнейм (до 100 символов)</label>
+        <input type="text" id="username" placeholder="Придумайте уникальный никнейм" maxlength="100">
       </div>
       
       <div class="form-group">
@@ -2672,7 +2667,6 @@ footer {
         <div class="avatar-selection" id="avatar-selection">
           <div class="avatar-option" data-avatar="💅">💅</div>
           <div class="avatar-option" data-avatar="🐻">🐻</div>
-          <div class="avatar-option" data-avatar="🧸">🧸</div>
           <div class="avatar-option" data-avatar="🌸">🌸</div>
           <div class="avatar-option" data-avatar="💕">💕</div>
           <div class="avatar-option" data-avatar="⚡">⚡</div>
@@ -2804,6 +2798,9 @@ footer {
           <button class="change-username-btn" onclick="openChangeUsernameModal()">
             <i class="fas fa-edit"></i> Сменить никнейм
           </button>
+          <button class="change-username-btn" onclick="openChangeAvatarModal()" style="margin-left: 8px;">
+            <i class="fas fa-image"></i> Сменить аватар
+          </button>
         </div>
       </div>
       
@@ -2905,7 +2902,7 @@ footer {
     
     <div class="auth-form">
       <div class="form-group">
-        <label for="search-user-input">Номер телефона или email</label>
+        <label for="search-user-input">Номер телефона или никнейм</label>
         <input type="text" id="search-user-input" placeholder="Введите данные клиента">
       </div>
       <button class="submit-btn" onclick="searchUser()">Найти</button>
@@ -3018,12 +3015,12 @@ footer {
   <div class="auth-content">
     <button class="close-right" onclick="closeChangeUsernameModal()">&times;</button>
     <h2 style="font-family:'Playfair Display', serif; margin-bottom:10px; font-size:clamp(20px, 5vw, 24px);">Сменить никнейм</h2>
-    <p style="color:var(--muted); font-size:clamp(14px, 4vw, 16px);">Введите новый никнейм:</p>
+    <p style="color:var(--muted); font-size:clamp(14px, 4vw, 16px);">Введите новый никнейм (до 100 символов):</p>
     
     <div class="auth-form">
       <div class="form-group">
         <label for="new-username">Новый никнейм</label>
-        <input type="text" id="new-username" placeholder="Введите новый никнейм">
+        <input type="text" id="new-username" placeholder="Введите новый никнейм" maxlength="100">
       </div>
       
       <button class="submit-btn" onclick="changeUsername()">Сменить никнейм</button>
@@ -3041,7 +3038,6 @@ footer {
     <div class="avatar-selection" id="avatar-selection-modal">
       <div class="avatar-option" data-avatar="💅">💅</div>
       <div class="avatar-option" data-avatar="🐻">🐻</div>
-      <div class="avatar-option" data-avatar="🧸">🧸</div>
       <div class="avatar-option" data-avatar="🌸">🌸</div>
       <div class="avatar-option" data-avatar="💕">💕</div>
       <div class="avatar-option" data-avatar="⚡">⚡</div>
@@ -3132,7 +3128,7 @@ const ACHIEVEMENTS = {
     }
 };
 
-const LOYALTY_SYSTEM = {
+let LOYALTY_SYSTEM = {
     visits: 0,
     points: 0,
     level: 1,
@@ -3162,27 +3158,26 @@ const keys = {
   pinky35: [4]
 };
 
-let reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
+let reviews = [];
 let searchData = [];
 
-// ===== НОВЫЙ МАССИВ ПРИЗОВ ДЛЯ КОЛЕСА ФОРТУНЫ =====
+// ===== НОВЫЙ МАССИВ ПРИЗОВ ДЛЯ КОЛЕСА ФОРТУНЫ (Удален сладкий презент, оставлено 5 призов) =====
 const fortunePrizes = [
     { name: 'Сладкий кофе-шоколадка', icon: '☕️🍫', discount: 5, weight: 25, color: '#8B4513' },
-    { name: 'Уходный подарок', icon: '💄🧴', discount: 8, weight: 20, color: '#F5DEB3' },
-    { name: 'Дефузер домашний', icon: '🕯️', discount: 10, weight: 18, color: '#FFD700' },
-    { name: 'СПА набор', icon: '💆‍♀️🧼', discount: 13, weight: 22, color: '#FFFFFF' },
-    { name: 'Сумка "Лонг чамп"', icon: '👜', discount: 15, weight: 5, color: '#A0522D' },
-    { name: 'Плюшевая игрушка', icon: '🧸', discount: 12, weight: 10, color: '#808080' }
+    { name: 'Диффузор для дома', icon: '🕯️', discount: 10, weight: 18, color: '#FFD700' },
+    { name: 'Набор для ручек (масло, шоколадка, крем)', icon: '🧴🍫❤️', discount: 12, weight: 22, color: '#F5DEB3' },
+    { name: 'Бесплатная маска для рук', icon: '💆‍♀️✨', discount: 15, weight: 5, color: '#A0522D' },
+    { name: 'Скидка 13% на процедуру', icon: '💸', discount: 13, weight: 20, color: '#FFFFFF' }
 ];
 
-// ===== НОВЫЙ ПРАЙС =====
+// ===== НОВЫЙ ПРАЙС (Дизайн 100 рублей + надпись "Красивые фигурки") =====
 const DEFAULT_SERVICES = [
-    { id: 1, name: 'Наращивание ногтей', description: 'маникюр, наращивание на нижние/верхние формы или гелевые типсы, укрепление жёстким гелем, выравнивание, покрытие.', price: '2.200₽', originalPrice: 2200 },
+    { id: 1, name: 'Наращивание ногтей', description: 'маникюр, наращивание на нижние/верхние формы или гелевые типсы, укрепление жёстким гелем, выравнивание, покрытие. Макс 4', price: '2.200₽', originalPrice: 2200 },
     { id: 2, name: 'Гель-лак', description: 'маникюр, выравнивание и укрепление жёстким гелем, покрытие гель-лаком.', price: '1.900₽', originalPrice: 1900 },
     { id: 3, name: 'Маникюр без покрытия', description: 'комбинированный маникюр, обработка кутикулы, придание формы ногтям, уход.', price: '900₽', originalPrice: 900 },
     { id: 4, name: 'Снятие чужой работы', description: 'Аккуратное снятие чужой работы', price: '300₽', originalPrice: 300 },
     { id: 5, name: 'Ремонт одного ногтя', description: 'Восстановление сломанного ногтя.', price: '200₽', originalPrice: 200 },
-    { id: 6, name: 'Любой дизайн', description: 'наклейки, слайдеры, фигурки', price: '+150₽', originalPrice: 150, isExtra: true },
+    { id: 6, name: 'Любой дизайн', description: 'наклейки, слайдеры, фигурки. Красивые фигурки', price: '+100₽', originalPrice: 100, isExtra: true },
     { id: 7, name: 'Уход за ручками', description: 'Питательная и увлажняющая маска для мягкости и восстановления сухой кожи рук', price: '+400₽', originalPrice: 400, isExtra: true }
 ];
 
@@ -3219,24 +3214,33 @@ function setDevMode(userData) {
 
 function showDevGreeting(greeting) {
     const greetingElement = document.getElementById('dev-greeting');
-    greetingElement.textContent = greeting;
-    greetingElement.style.display = 'block';
-    
-    setTimeout(() => {
-        greetingElement.style.display = 'none';
-    }, 5000);
+    if(greetingElement) {
+        greetingElement.textContent = greeting;
+        greetingElement.style.display = 'block';
+        setTimeout(() => {
+            if(greetingElement) greetingElement.style.display = 'none';
+        }, 5000);
+    }
 }
 
 function updateUIForDevMode() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser && currentUser.devMode) {
-        document.getElementById('dev-crown').style.display = 'inline';
-        document.getElementById('prices-button').style.display = 'block';
-        document.getElementById('search-user-button').style.display = 'block';
-        document.getElementById('manage-polls-button').style.display = 'block';
-        document.getElementById('manage-contests-button').style.display = 'block';
-        document.getElementById('manage-reviews-button').style.display = 'block';
-        document.getElementById('manage-portfolio-button').style.display = 'block';
+    const currentUserData = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUserData && currentUserData.devMode) {
+        const crown = document.getElementById('dev-crown');
+        if(crown) crown.style.display = 'inline';
+        const priceBtn = document.getElementById('prices-button');
+        if(priceBtn) priceBtn.style.display = 'block';
+        const searchBtn = document.getElementById('search-user-button');
+        if(searchBtn) searchBtn.style.display = 'block';
+        const managePolls = document.getElementById('manage-polls-button');
+        if(managePolls) managePolls.style.display = 'block';
+        const manageContests = document.getElementById('manage-contests-button');
+        if(manageContests) manageContests.style.display = 'block';
+        const manageReviews = document.getElementById('manage-reviews-button');
+        if(manageReviews) manageReviews.style.display = 'block';
+        const managePortfolio = document.getElementById('manage-portfolio-button');
+        if(managePortfolio) managePortfolio.style.display = 'block';
+        
         showDevPromoPanel();
         showDevPortfolioPanel();
     }
@@ -3244,7 +3248,21 @@ function updateUIForDevMode() {
 
 function showDevPromoPanel() {
     const activatedPromosContainer = document.getElementById('activated-promos');
-    if(!activatedPromosContainer) return;
+    if(!activatedPromosContainer) {
+        // Если контейнера нет, создаем его временно для отображения панели
+        const portfolioDevPanel = document.getElementById('portfolio-dev-panel');
+        if(portfolioDevPanel) {
+            portfolioDevPanel.insertAdjacentHTML('beforebegin', '<div id="activated-promos" style="margin-top:20px;"></div>');
+        }
+        const newContainer = document.getElementById('activated-promos');
+        if(!newContainer) return;
+        loadDevPromoListInto(newContainer);
+        return;
+    }
+    loadDevPromoListInto(activatedPromosContainer);
+}
+
+function loadDevPromoListInto(container) {
     const devPanelHTML = `
         <div class="dev-promo-panel">
             <div class="dev-promo-header">
@@ -3275,12 +3293,13 @@ function showDevPromoPanel() {
         </div>
     `;
     
-    activatedPromosContainer.innerHTML = devPanelHTML;
+    container.innerHTML = devPanelHTML;
     loadDevPromoList();
 }
 
 function showDevPortfolioPanel() {
     const portfolioDevPanel = document.getElementById('portfolio-dev-panel');
+    if(!portfolioDevPanel) return;
     const devPanelHTML = `
         <div class="dev-portfolio-panel">
             <div class="dev-portfolio-header">
@@ -3321,7 +3340,7 @@ function loadDevPortfolioList() {
     devPortfolioList.innerHTML = portfolioItems.map((item, index) => `
         <div class="dev-portfolio-item">
             <div>
-                <span class="dev-portfolio-name">${item.alt}</span>
+                <span class="dev-portfolio-name">${escapeHtml(item.alt)}</span>
             </div>
             <div>
                 <button class="dev-portfolio-edit" onclick="editPortfolioItem(${index})">
@@ -3339,8 +3358,8 @@ function addNewPortfolioItem() {
     const urlInput = document.getElementById('new-portfolio-url');
     const altInput = document.getElementById('new-portfolio-alt');
     
-    const url = urlInput.value.trim();
-    const alt = altInput.value.trim();
+    const url = urlInput ? urlInput.value.trim() : '';
+    const alt = altInput ? altInput.value.trim() : '';
     
     if (!url) {
         alert('Введите URL изображения');
@@ -3363,8 +3382,8 @@ function addNewPortfolioItem() {
     portfolioItems.push(newItem);
     localStorage.setItem('portfolioItems', JSON.stringify(portfolioItems));
     
-    urlInput.value = '';
-    altInput.value = '';
+    if(urlInput) urlInput.value = '';
+    if(altInput) altInput.value = '';
     
     loadDevPortfolioList();
     displayPortfolio();
@@ -3420,10 +3439,10 @@ function loadDevPromoList() {
     devPromoList.innerHTML = allPromoCodes.map(promo => `
         <div class="dev-promo-item">
             <div>
-                <span class="dev-promo-code">${promo.code}</span>
+                <span class="dev-promo-code">${escapeHtml(promo.code)}</span>
                 <span class="dev-promo-percent">-${promo.percent}%</span>
             </div>
-            <button class="dev-promo-delete" onclick="deletePromoCode('${promo.code}')">
+            <button class="dev-promo-delete" onclick="deletePromoCode('${escapeHtml(promo.code)}')">
                 <i class="fas fa-trash"></i> Удалить
             </button>
         </div>
@@ -3434,8 +3453,8 @@ function addNewPromoCode() {
     const codeInput = document.getElementById('new-promo-code');
     const percentSelect = document.getElementById('new-promo-percent');
     
-    const code = codeInput.value.trim().toUpperCase();
-    const percent = parseInt(percentSelect.value);
+    const code = codeInput ? codeInput.value.trim().toUpperCase() : '';
+    const percent = percentSelect ? parseInt(percentSelect.value) : 5;
     
     if (!code) {
         alert('Введите код промокода');
@@ -3457,7 +3476,7 @@ function addNewPromoCode() {
     const newPromo = {
         code: code,
         percent: percent,
-        createdBy: JSON.parse(localStorage.getItem('currentUser')).phone,
+        createdBy: JSON.parse(localStorage.getItem('currentUser'))?.phone || 'admin',
         createdAt: new Date().toISOString()
     };
     
@@ -3466,24 +3485,14 @@ function addNewPromoCode() {
     
     updatePromoCodesForAllUsers();
     
-    codeInput.value = '';
+    if(codeInput) codeInput.value = '';
     
     showSuccessMessage(`Промокод ${code} добавлен!`);
+    loadDevPromoList();
 }
 
 function updatePromoCodesForAllUsers() {
-    const allPromoCodes = JSON.parse(localStorage.getItem('allPromoCodes') || '[]');
-    
-    const defaultPromocodes = document.getElementById('default-promocodes');
-    if (defaultPromocodes) {
-        if (allPromoCodes.length > 0) {
-            defaultPromocodes.innerHTML = allPromoCodes.map(promo => 
-                `<strong style="color:var(--primary)">${promo.code}</strong> - скидка ${promo.percent}%<br>`
-            ).join('');
-        } else {
-            defaultPromocodes.innerHTML = 'Промокодов пока нет';
-        }
-    }
+    // No specific UI needed here, just data update
 }
 
 function deletePromoCode(code) {
@@ -3494,20 +3503,19 @@ function deletePromoCode(code) {
     
     localStorage.setItem('allPromoCodes', JSON.stringify(updatedPromoCodes));
     
-    updatePromoCodesForAllUsers();
-    
     showSuccessMessage(`Промокод ${code} удален`);
+    loadDevPromoList();
 }
 
 function loadServices() {
-    let services = JSON.parse(localStorage.getItem('services'));
-    
-    if (!services) {
-        services = [...DEFAULT_SERVICES];
-        localStorage.setItem('services', JSON.stringify(services));
+    let services = localStorage.getItem('services');
+    if (services) {
+        try {
+            return JSON.parse(services);
+        } catch(e) { console.error(e); }
     }
-    
-    return services;
+    localStorage.setItem('services', JSON.stringify(DEFAULT_SERVICES));
+    return [...DEFAULT_SERVICES];
 }
 
 function saveServices(services) {
@@ -3517,15 +3525,16 @@ function saveServices(services) {
 function displayServices() {
     const services = loadServices();
     const servicesContainer = document.getElementById('services-container');
+    if(!servicesContainer) return;
     
     servicesContainer.innerHTML = services.map(service => `
-        <div class="note" data-service="${service.name}">
+        <div class="note" data-service="${escapeHtml(service.name)}">
             <div class="note-row">
                 <div>
-                    <div class="note-title">${service.name}</div>
-                    ${service.description ? `<div class="note-sub">${service.description}</div>` : ''}
+                    <div class="note-title">${escapeHtml(service.name)}</div>
+                    ${service.description ? `<div class="note-sub">${escapeHtml(service.description)}</div>` : ''}
                 </div>
-                <div class="note-price">${service.price}</div>
+                <div class="note-price">${escapeHtml(service.price)}</div>
             </div>
         </div>
     `).join('');
@@ -3535,7 +3544,6 @@ function displayServices() {
 
 function updateSearchData(services) {
     searchData = [];
-    
     services.forEach(service => {
         searchData.push({
             title: service.name,
@@ -3557,23 +3565,26 @@ function updateSearchData(services) {
 }
 
 function openPricesModal() {
-    document.getElementById('prices-modal').style.display = 'flex';
+    const modal = document.getElementById('prices-modal');
+    if(modal) modal.style.display = 'flex';
     loadPricesForEditing();
 }
 
 function closePricesModal() {
-    document.getElementById('prices-modal').style.display = 'none';
+    const modal = document.getElementById('prices-modal');
+    if(modal) modal.style.display = 'none';
 }
 
 function loadPricesForEditing() {
     const services = loadServices();
     const pricesList = document.getElementById('dev-prices-list');
+    if(!pricesList) return;
     
     pricesList.innerHTML = services.map(service => `
         <div class="dev-price-item">
             <div>
-                <span class="dev-price-name">${service.name}</span>
-                <span class="dev-price-value">${service.price}</span>
+                <span class="dev-price-name">${escapeHtml(service.name)}</span>
+                <span class="dev-price-value">${escapeHtml(service.price)}</span>
             </div>
             <div>
                 <input type="number" class="dev-price-input" id="price-${service.id}" 
@@ -3588,21 +3599,23 @@ function loadPricesForEditing() {
         </div>
     `).join('');
     
-    pricesList.innerHTML += `
-        <div class="add-service-form">
-            <input type="text" class="add-service-input" id="new-service-name" placeholder="Название услуги">
-            <input type="text" class="add-service-input" id="new-service-description" placeholder="Описание (необязательно)">
-            <input type="number" class="add-service-input" id="new-service-price" placeholder="Цена" min="0">
-            <button class="add-service-btn" onclick="addNewService()" style="grid-column: 1 / -1;">
-                <i class="fas fa-plus"></i> Добавить услугу
-            </button>
-        </div>
-    `;
+    if(pricesList) {
+        pricesList.innerHTML += `
+            <div class="add-service-form" style="margin-top: 15px; padding: 10px; border-top: 1px solid #ddd;">
+                <input type="text" class="add-service-input" id="new-service-name" placeholder="Название услуги" style="width:100%; margin-bottom:8px; padding:8px;">
+                <input type="text" class="add-service-input" id="new-service-description" placeholder="Описание (необязательно)" style="width:100%; margin-bottom:8px; padding:8px;">
+                <input type="number" class="add-service-input" id="new-service-price" placeholder="Цена" min="0" style="width:100%; margin-bottom:8px; padding:8px;">
+                <button class="add-service-btn" onclick="addNewService()" style="width:100%;">
+                    <i class="fas fa-plus"></i> Добавить услугу
+                </button>
+            </div>
+        `;
+    }
 }
 
 function updateServicePrice(serviceId) {
     const newPriceInput = document.getElementById(`price-${serviceId}`);
-    const newPrice = parseInt(newPriceInput.value);
+    const newPrice = newPriceInput ? parseInt(newPriceInput.value) : 0;
     
     if (isNaN(newPrice) || newPrice < 0) {
         alert('Введите корректную цену');
@@ -3628,9 +3641,9 @@ function addNewService() {
     const descriptionInput = document.getElementById('new-service-description');
     const priceInput = document.getElementById('new-service-price');
     
-    const name = nameInput.value.trim();
-    const description = descriptionInput.value.trim();
-    const price = parseInt(priceInput.value);
+    const name = nameInput ? nameInput.value.trim() : '';
+    const description = descriptionInput ? descriptionInput.value.trim() : '';
+    const price = priceInput ? parseInt(priceInput.value) : 0;
     
     if (!name) {
         alert('Введите название услуги');
@@ -3657,9 +3670,9 @@ function addNewService() {
     saveServices(services);
     displayServices();
     
-    nameInput.value = '';
-    descriptionInput.value = '';
-    priceInput.value = '';
+    if(nameInput) nameInput.value = '';
+    if(descriptionInput) descriptionInput.value = '';
+    if(priceInput) priceInput.value = '';
     
     showSuccessMessage(`Услуга "${name}" добавлена!`);
 }
@@ -3691,7 +3704,7 @@ function saveUserToDatabase(userData) {
     const userDatabase = JSON.parse(localStorage.getItem('userDatabase') || '[]');
     
     const existingUserIndex = userDatabase.findIndex(user => 
-        user.phone === userData.phone || user.email === userData.email
+        user.phone === userData.phone
     );
     
     if (existingUserIndex !== -1) {
@@ -3704,8 +3717,8 @@ function saveUserToDatabase(userData) {
         userData.id = generateUserId();
         userData.registrationDate = new Date().toISOString();
         userData.lastLogin = new Date().toISOString();
-        userData.visits = 0;
-        userData.points = 0;
+        userData.visits = userData.visits || 0;
+        userData.points = userData.points || 0;
         userDatabase.push(userData);
         
         if (userDatabase.length > 500) {
@@ -3722,15 +3735,13 @@ function generateUserId() {
 
 function searchUserInDatabase(query) {
     const userDatabase = JSON.parse(localStorage.getItem('userDatabase') || '[]');
-    
     return userDatabase.filter(user => 
         user.phone.includes(query) || 
-        user.email.includes(query) ||
+        (user.email && user.email.includes(query)) ||
         user.username.toLowerCase().includes(query.toLowerCase())
     );
 }
 
-// ===== ФУНКЦИЯ ДЛЯ ГЕНЕРАЦИИ РАНДОМНЫХ ЛАЙКОВ =====
 function generateRandomLikes() {
     return Math.floor(Math.random() * (150 - 50 + 1)) + 50;
 }
@@ -3768,6 +3779,7 @@ function initPortfolioLikes() {
 function displayPortfolio() {
     const portfolioLikes = JSON.parse(localStorage.getItem('portfolioLikes') || '{}');
     const portfolioGrid = document.getElementById('portfolio-grid');
+    if(!portfolioGrid) return;
     
     let portfolioItems = JSON.parse(localStorage.getItem('portfolioItems') || '[]');
     
@@ -3786,19 +3798,19 @@ function displayPortfolio() {
     
     portfolioGrid.innerHTML = portfolioItems.map(item => {
         const likesData = portfolioLikes[item.id] || { likes: generateRandomLikes(), userLikes: {} };
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        const isLiked = currentUser && likesData.userLikes[currentUser.id];
+        const currentUserData = JSON.parse(localStorage.getItem('currentUser'));
+        const isLiked = currentUserData && likesData.userLikes[currentUserData.id];
         
         return `
             <div class="portfolio-item">
-                <a href="${item.src}" target="_blank">
-                    <img src="${item.src}" alt="${item.alt}" loading="lazy">
+                <a href="${escapeHtml(item.src)}" target="_blank">
+                    <img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.alt)}" loading="lazy">
                 </a>
                 <div class="portfolio-actions">
                     <div class="portfolio-like ${isLiked ? 'liked' : ''}" onclick="togglePortfolioLike('${item.id}')">
                         <i class="fas fa-heart"></i>
                     </div>
-                    <div class="portfolio-share" onclick="sharePortfolioItem('${item.src}', '${item.alt}')">
+                    <div class="portfolio-share" onclick="sharePortfolioItem('${escapeHtml(item.src)}', '${escapeHtml(item.alt)}')">
                         <i class="fas fa-share-alt"></i>
                     </div>
                 </div>
@@ -3811,8 +3823,8 @@ function displayPortfolio() {
 }
 
 function togglePortfolioLike(photoId) {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (!currentUser) {
+    const currentUserData = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUserData) {
         alert('Для оценки фото необходимо авторизоваться!');
         openAuthModal();
         return;
@@ -3825,12 +3837,12 @@ function togglePortfolioLike(photoId) {
     
     const likesData = portfolioLikes[photoId];
     
-    if (likesData.userLikes[currentUser.id]) {
+    if (likesData.userLikes[currentUserData.id]) {
         likesData.likes--;
-        delete likesData.userLikes[currentUser.id];
+        delete likesData.userLikes[currentUserData.id];
     } else {
         likesData.likes++;
-        likesData.userLikes[currentUser.id] = true;
+        likesData.userLikes[currentUserData.id] = true;
     }
     
     localStorage.setItem('portfolioLikes', JSON.stringify(portfolioLikes));
@@ -3878,37 +3890,45 @@ function getActivePolls() {
 
 function displayCurrentPoll() {
     const polls = getActivePolls();
+    const pollQuestionEl = document.getElementById('poll-question');
+    const pollOptionsEl = document.getElementById('poll-options');
+    const voteBtn = document.getElementById('vote-button');
+    const pollResultsEl = document.getElementById('poll-results');
+    
+    if(!pollQuestionEl || !pollOptionsEl) return;
+    
     if (polls.length === 0) {
         document.getElementById('current-poll').innerHTML = '<p>В настоящее время нет активных опросов</p>';
         return;
     }
     
     const currentPoll = polls[0];
-    document.getElementById('poll-question').textContent = currentPoll.question;
+    pollQuestionEl.textContent = currentPoll.question;
     
-    const pollOptions = document.getElementById('poll-options');
-    pollOptions.innerHTML = '';
+    pollOptionsEl.innerHTML = '';
     
     currentPoll.options.forEach(option => {
         const optionElement = document.createElement('div');
         optionElement.className = 'poll-option';
         optionElement.innerHTML = `
-            <span>${option.name}</span>
+            <span>${escapeHtml(option.name)}</span>
             <span id="${option.id}-count">${option.votes}</span>
         `;
         optionElement.onclick = () => selectPollOption(option.id);
-        pollOptions.appendChild(optionElement);
+        pollOptionsEl.appendChild(optionElement);
     });
     
     selectedPollOption = null;
-    document.getElementById('vote-button').disabled = true;
+    if(voteBtn) voteBtn.disabled = true;
     
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser && currentPoll.userVotes[currentUser.id]) {
+    const currentUserData = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUserData && currentPoll.userVotes[currentUserData.id]) {
         showPollResults();
+        if(pollResultsEl) pollResultsEl.style.display = 'block';
+        if(voteBtn) voteBtn.style.display = 'none';
     } else {
-        document.getElementById('poll-results').style.display = 'none';
-        document.getElementById('vote-button').style.display = 'block';
+        if(pollResultsEl) pollResultsEl.style.display = 'none';
+        if(voteBtn) voteBtn.style.display = 'block';
     }
 }
 
@@ -3925,7 +3945,8 @@ function selectPollOption(optionId) {
     }
     
     selectedPollOption = optionId;
-    document.getElementById('vote-button').disabled = false;
+    const voteBtn = document.getElementById('vote-button');
+    if(voteBtn) voteBtn.disabled = false;
 }
 
 function getOptionName(optionId) {
@@ -3941,8 +3962,8 @@ function submitVote() {
         return;
     }
     
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (!currentUser) {
+    const currentUserData = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUserData) {
         alert('Для голосования необходимо авторизоваться!');
         openAuthModal();
         return;
@@ -3951,7 +3972,7 @@ function submitVote() {
     const polls = JSON.parse(localStorage.getItem('polls') || '[]');
     const currentPoll = polls[0];
     
-    if (currentPoll.userVotes[currentUser.id]) {
+    if (currentPoll.userVotes[currentUserData.id]) {
         alert('Вы уже голосовали в этом опросе!');
         return;
     }
@@ -3959,7 +3980,7 @@ function submitVote() {
     const optionIndex = currentPoll.options.findIndex(opt => opt.id === selectedPollOption);
     if (optionIndex !== -1) {
         currentPoll.options[optionIndex].votes++;
-        currentPoll.userVotes[currentUser.id] = selectedPollOption;
+        currentPoll.userVotes[currentUserData.id] = selectedPollOption;
         
         localStorage.setItem('polls', JSON.stringify(polls));
         
@@ -3978,23 +3999,26 @@ function showPollResults() {
     
     if (totalVotes > 0) {
         const resultsContainer = document.getElementById('poll-results-container');
-        resultsContainer.innerHTML = '';
+        if(resultsContainer) {
+            resultsContainer.innerHTML = '';
+            currentPoll.options.forEach(option => {
+                const percent = Math.round((option.votes / totalVotes) * 100);
+                const resultItem = document.createElement('div');
+                resultItem.className = 'poll-result-item';
+                resultItem.innerHTML = `
+                    <div>${escapeHtml(option.name)}: <span>${percent}%</span></div>
+                    <div class="poll-result-bar">
+                        <div class="poll-result-fill" style="width: ${percent}%"></div>
+                    </div>
+                `;
+                resultsContainer.appendChild(resultItem);
+            });
+        }
         
-        currentPoll.options.forEach(option => {
-            const percent = Math.round((option.votes / totalVotes) * 100);
-            const resultItem = document.createElement('div');
-            resultItem.className = 'poll-result-item';
-            resultItem.innerHTML = `
-                <div>${option.name}: <span>${percent}%</span></div>
-                <div class="poll-result-bar">
-                    <div class="poll-result-fill" style="width: ${percent}%"></div>
-                </div>
-            `;
-            resultsContainer.appendChild(resultItem);
-        });
-        
-        document.getElementById('poll-results').style.display = 'block';
-        document.getElementById('vote-button').style.display = 'none';
+        const pollResults = document.getElementById('poll-results');
+        const voteBtn = document.getElementById('vote-button');
+        if(pollResults) pollResults.style.display = 'block';
+        if(voteBtn) voteBtn.style.display = 'none';
     }
 }
 
@@ -4028,6 +4052,7 @@ function getActiveContests() {
 function displayContests() {
     const contests = getActiveContests();
     const contestsContainer = document.getElementById('contests-container');
+    if(!contestsContainer) return;
     
     if (contests.length === 0) {
         contestsContainer.innerHTML = '<p>В настоящее время нет активных конкурсов</p>';
@@ -4036,8 +4061,8 @@ function displayContests() {
     
     contestsContainer.innerHTML = contests.map(contest => `
         <div class="contest-item">
-            <h3>${contest.title}</h3>
-            <p>${contest.description}</p>
+            <h3>${escapeHtml(contest.title)}</h3>
+            <p>${escapeHtml(contest.description)}</p>
             <button class="submit-btn" onclick="participateContest(${contest.id})">
                 <i class="fas fa-trophy"></i> Участвовать
             </button>
@@ -4046,8 +4071,8 @@ function displayContests() {
 }
 
 function participateContest(contestId) {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (!currentUser) {
+    const currentUserData = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUserData) {
         alert('Для участия в конкурсе необходимо авторизоваться!');
         openAuthModal();
         return;
@@ -4059,12 +4084,12 @@ function participateContest(contestId) {
     if (contestIndex !== -1) {
         const contest = contests[contestIndex];
         
-        if (contest.participants.includes(currentUser.id)) {
+        if (contest.participants.includes(currentUserData.id)) {
             alert('Вы уже участвуете в этом конкурсе!');
             return;
         }
         
-        contest.participants.push(currentUser.id);
+        contest.participants.push(currentUserData.id);
         localStorage.setItem('contests', JSON.stringify(contests));
         
         addLoyaltyPoints(20, 'Участие в конкурсе');
@@ -4075,17 +4100,20 @@ function participateContest(contestId) {
 }
 
 function openManagePollsModal() {
-    document.getElementById('manage-polls-modal').style.display = 'flex';
+    const modal = document.getElementById('manage-polls-modal');
+    if(modal) modal.style.display = 'flex';
     loadPollsForEditing();
 }
 
 function closeManagePollsModal() {
-    document.getElementById('manage-polls-modal').style.display = 'none';
+    const modal = document.getElementById('manage-polls-modal');
+    if(modal) modal.style.display = 'none';
 }
 
 function loadPollsForEditing() {
     const polls = JSON.parse(localStorage.getItem('polls') || '[]');
     const pollsList = document.getElementById('dev-polls-list');
+    if(!pollsList) return;
     
     if (polls.length === 0) {
         pollsList.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--muted);">Нет активных опросов</div>';
@@ -4095,7 +4123,7 @@ function loadPollsForEditing() {
     pollsList.innerHTML = polls.map(poll => `
         <div class="dev-poll-item">
             <div>
-                <span class="dev-poll-name">${poll.question}</span>
+                <span class="dev-poll-name">${escapeHtml(poll.question)}</span>
                 <span class="dev-poll-votes">${poll.options.reduce((sum, opt) => sum + opt.votes, 0)} голосов</span>
             </div>
             <div>
@@ -4111,8 +4139,8 @@ function addNewPoll() {
     const questionInput = document.getElementById('new-poll-question');
     const optionsInput = document.getElementById('new-poll-options');
     
-    const question = questionInput.value.trim();
-    const optionsText = optionsInput.value.trim();
+    const question = questionInput ? questionInput.value.trim() : '';
+    const optionsText = optionsInput ? optionsInput.value.trim() : '';
     
     if (!question) {
         alert('Введите вопрос опроса');
@@ -4155,8 +4183,8 @@ function addNewPoll() {
     loadPollsForEditing();
     displayCurrentPoll();
     
-    questionInput.value = '';
-    optionsInput.value = '';
+    if(questionInput) questionInput.value = '';
+    if(optionsInput) optionsInput.value = '';
     
     showSuccessMessage('Новый опрос добавлен!');
 }
@@ -4179,17 +4207,20 @@ function deletePoll(pollId) {
 }
 
 function openManageContestsModal() {
-    document.getElementById('manage-contests-modal').style.display = 'flex';
+    const modal = document.getElementById('manage-contests-modal');
+    if(modal) modal.style.display = 'flex';
     loadContestsForEditing();
 }
 
 function closeManageContestsModal() {
-    document.getElementById('manage-contests-modal').style.display = 'none';
+    const modal = document.getElementById('manage-contests-modal');
+    if(modal) modal.style.display = 'none';
 }
 
 function loadContestsForEditing() {
     const contests = JSON.parse(localStorage.getItem('contests') || '[]');
     const contestsList = document.getElementById('dev-contests-list');
+    if(!contestsList) return;
     
     if (contests.length === 0) {
         contestsList.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--muted);">Нет активных конкурсов</div>';
@@ -4199,7 +4230,7 @@ function loadContestsForEditing() {
     contestsList.innerHTML = contests.map(contest => `
         <div class="dev-contest-item">
             <div>
-                <span class="dev-contest-name">${contest.title}</span>
+                <span class="dev-contest-name">${escapeHtml(contest.title)}</span>
                 <span class="dev-contest-participants">${contest.participants.length} участников</span>
             </div>
             <div>
@@ -4215,8 +4246,8 @@ function addNewContest() {
     const titleInput = document.getElementById('new-contest-title');
     const descriptionInput = document.getElementById('new-contest-description');
     
-    const title = titleInput.value.trim();
-    const description = descriptionInput.value.trim();
+    const title = titleInput ? titleInput.value.trim() : '';
+    const description = descriptionInput ? descriptionInput.value.trim() : '';
     
     if (!title) {
         alert('Введите название конкурса');
@@ -4249,8 +4280,8 @@ function addNewContest() {
     loadContestsForEditing();
     displayContests();
     
-    titleInput.value = '';
-    descriptionInput.value = '';
+    if(titleInput) titleInput.value = '';
+    if(descriptionInput) descriptionInput.value = '';
     
     showSuccessMessage('Новый конкурс добавлен!');
 }
@@ -4269,17 +4300,20 @@ function deleteContest(contestId) {
 }
 
 function openManageReviewsModal() {
-    document.getElementById('manage-reviews-modal').style.display = 'flex';
+    const modal = document.getElementById('manage-reviews-modal');
+    if(modal) modal.style.display = 'flex';
     loadReviewsForEditing();
 }
 
 function closeManageReviewsModal() {
-    document.getElementById('manage-reviews-modal').style.display = 'none';
+    const modal = document.getElementById('manage-reviews-modal');
+    if(modal) modal.style.display = 'none';
 }
 
 function loadReviewsForEditing() {
-    const reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
+    reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
     const reviewsList = document.getElementById('dev-reviews-list');
+    if(!reviewsList) return;
     
     if (reviews.length === 0) {
         reviewsList.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--muted);">Нет отзывов</div>';
@@ -4290,8 +4324,8 @@ function loadReviewsForEditing() {
         <div class="dev-review-item">
             <div>
                 <span class="dev-review-author">
-                    <span style="font-size: 16px; margin-right: 5px;">${review.authorAvatar || '💅'}</span>
-                    ${review.author}
+                    <span style="font-size: 16px; margin-right: 5px;">${escapeHtml(review.authorAvatar) || '💅'}</span>
+                    ${escapeHtml(review.author)}
                     ${review.pinned ? '<span style="color: var(--accent); margin-left: 5px;">📌</span>' : ''}
                 </span>
                 <span class="dev-review-date">${new Date(review.date).toLocaleDateString()}</span>
@@ -4309,7 +4343,7 @@ function loadReviewsForEditing() {
     
     if (reviews.length > 0) {
         reviewsList.innerHTML += `
-            <button class="dev-review-clear-all" onclick="clearAllReviews()">
+            <button class="dev-review-clear-all" onclick="clearAllReviews()" style="margin-top:10px; width:100%; padding:8px; background:#e74c3c; color:white; border:none; border-radius:8px;">
                 <i class="fas fa-trash-alt"></i> Очистить все отзывы
             </button>
         `;
@@ -4317,18 +4351,20 @@ function loadReviewsForEditing() {
 }
 
 function toggleReviewPin(index) {
-    const reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
-    reviews[index].pinned = !reviews[index].pinned;
-    localStorage.setItem("reviews", JSON.stringify(reviews));
-    loadReviewsForEditing();
-    displayReviews();
-    showSuccessMessage(`Отзыв ${reviews[index].pinned ? 'закреплен' : 'откреплен'}!`);
+    reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
+    if(reviews[index]) {
+        reviews[index].pinned = !reviews[index].pinned;
+        localStorage.setItem("reviews", JSON.stringify(reviews));
+        loadReviewsForEditing();
+        displayReviews();
+        showSuccessMessage(`Отзыв ${reviews[index].pinned ? 'закреплен' : 'откреплен'}!`);
+    }
 }
 
 function deleteReview(index) {
     if (!confirm('Удалить этот отзыв?')) return;
     
-    const reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
+    reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
     reviews.splice(index, 1);
     localStorage.setItem("reviews", JSON.stringify(reviews));
     loadReviewsForEditing();
@@ -4350,12 +4386,14 @@ function clearAllReviews() {
 }
 
 function displayReviews() {
+    reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
     const reviewsDisplay = document.getElementById('reviews-display');
     const showAllBtn = document.getElementById('show-all-reviews-btn');
+    if(!reviewsDisplay) return;
     
     if (reviews.length === 0) {
         reviewsDisplay.innerHTML = '<div class="no-reviews">Пока нет отзывов. Будьте первым!</div>';
-        showAllBtn.style.display = 'none';
+        if(showAllBtn) showAllBtn.style.display = 'none';
         return;
     }
     
@@ -4365,29 +4403,31 @@ function displayReviews() {
     const sortedReviews = [...pinnedReviews, ...unpinnedReviews];
     const displayedReviews = sortedReviews.slice(0, 5);
     
-    if (sortedReviews.length > 5) {
+    if (sortedReviews.length > 5 && showAllBtn) {
         showAllBtn.style.display = 'block';
         showAllBtn.onclick = showAllReviews;
-    } else {
+    } else if(showAllBtn) {
         showAllBtn.style.display = 'none';
     }
     
     reviewsDisplay.innerHTML = displayedReviews.map(review => `
         <div class="review-item ${review.pinned ? 'pinned' : ''}">
             <div class="review-author">
-                <span style="font-size: 16px; margin-right: 5px;">${review.authorAvatar || '💅'}</span>
-                ${review.author}
+                <span style="font-size: 16px; margin-right: 5px;">${escapeHtml(review.authorAvatar) || '💅'}</span>
+                ${escapeHtml(review.author)}
                 ${review.pinned ? '<span style="color: var(--accent); margin-left: 5px;">📌</span>' : ''}
             </div>
-            <div class="review-text">${review.text}</div>
-            ${review.image ? `<img src="${review.image}" style="max-width: 100%; margin-top: 10px; border-radius: 8px;" alt="Review image">` : ''}
+            <div class="review-text">${escapeHtml(review.text)}</div>
+            ${review.image ? `<img src="${escapeHtml(review.image)}" style="max-width: 100%; margin-top: 10px; border-radius: 8px;" alt="Review image">` : ''}
         </div>
     `).join('');
 }
 
 function showAllReviews() {
+    reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
     const reviewsDisplay = document.getElementById('reviews-display');
     const showAllBtn = document.getElementById('show-all-reviews-btn');
+    if(!reviewsDisplay) return;
     
     const sortedReviews = [...reviews].sort((a, b) => {
         if (a.pinned && !b.pinned) return -1;
@@ -4398,21 +4438,21 @@ function showAllReviews() {
     reviewsDisplay.innerHTML = sortedReviews.map(review => `
         <div class="review-item ${review.pinned ? 'pinned' : ''}">
             <div class="review-author">
-                <span style="font-size: 16px; margin-right: 5px;">${review.authorAvatar || '💅'}</span>
-                ${review.author}
+                <span style="font-size: 16px; margin-right: 5px;">${escapeHtml(review.authorAvatar) || '💅'}</span>
+                ${escapeHtml(review.author)}
                 ${review.pinned ? '<span style="color: var(--accent); margin-left: 5px;">📌</span>' : ''}
             </div>
-            <div class="review-text">${review.text}</div>
-            ${review.image ? `<img src="${review.image}" style="max-width: 100%; margin-top: 10px; border-radius: 8px;" alt="Review image">` : ''}
+            <div class="review-text">${escapeHtml(review.text)}</div>
+            ${review.image ? `<img src="${escapeHtml(review.image)}" style="max-width: 100%; margin-top: 10px; border-radius: 8px;" alt="Review image">` : ''}
         </div>
     `).join('');
     
-    showAllBtn.style.display = 'none';
+    if(showAllBtn) showAllBtn.style.display = 'none';
 }
 
 function addReview(author, text, image = null) {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const authorAvatar = currentUser ? currentUser.avatar : '💅';
+    const currentUserData = JSON.parse(localStorage.getItem('currentUser'));
+    const authorAvatar = currentUserData ? currentUserData.avatar : '💅';
     
     const newReview = {
         author: author,
@@ -4423,19 +4463,18 @@ function addReview(author, text, image = null) {
         authorAvatar: authorAvatar
     };
     
-    reviews.unshift(newReview);
+    reviews = [newReview, ...reviews];
     localStorage.setItem("reviews", JSON.stringify(reviews));
     
     displayReviews();
-    
     unlockAchievement('reviewMaster');
 }
 
-document.getElementById('modal-submit-review').addEventListener('click', function() {
-    const name = document.getElementById('modal-review-name').value.trim();
-    const text = document.getElementById('modal-review-text').value.trim();
+document.getElementById('modal-submit-review')?.addEventListener('click', function() {
+    const name = document.getElementById('modal-review-name')?.value.trim() || '';
+    const text = document.getElementById('modal-review-text')?.value.trim() || '';
     const imageInput = document.getElementById('modal-review-image');
-    const imageFile = imageInput.files[0];
+    const imageFile = imageInput?.files[0];
     
     if (!name || !text) {
         alert('Пожалуйста, заполните имя и текст отзыва.');
@@ -4446,34 +4485,41 @@ document.getElementById('modal-submit-review').addEventListener('click', functio
         const reader = new FileReader();
         reader.onload = function(e) {
             addReview(name, text, e.target.result);
-            document.getElementById('modal-review-success').style.display = 'block';
+            const successMsg = document.getElementById('modal-review-success');
+            if(successMsg) successMsg.style.display = 'block';
             setTimeout(() => {
-                document.getElementById('modal-review-success').style.display = 'none';
+                if(successMsg) successMsg.style.display = 'none';
                 closeReviewModal();
             }, 1500);
         };
         reader.readAsDataURL(imageFile);
     } else {
         addReview(name, text);
-        document.getElementById('modal-review-success').style.display = 'block';
+        const successMsg = document.getElementById('modal-review-success');
+        if(successMsg) successMsg.style.display = 'block';
         setTimeout(() => {
-            document.getElementById('modal-review-success').style.display = 'none';
+            if(successMsg) successMsg.style.display = 'none';
             closeReviewModal();
         }, 1500);
     }
     
-    document.getElementById('modal-review-name').value = '';
-    document.getElementById('modal-review-text').value = '';
-    imageInput.value = '';
+    const nameInput = document.getElementById('modal-review-name');
+    const textInput = document.getElementById('modal-review-text');
+    const imgInput = document.getElementById('modal-review-image');
+    if(nameInput) nameInput.value = '';
+    if(textInput) textInput.value = '';
+    if(imgInput) imgInput.value = '';
 });
 
 function openManagePortfolioModal() {
-    document.getElementById('manage-portfolio-modal').style.display = 'flex';
+    const modal = document.getElementById('manage-portfolio-modal');
+    if(modal) modal.style.display = 'flex';
     loadDevPortfolioList();
 }
 
 function closeManagePortfolioModal() {
-    document.getElementById('manage-portfolio-modal').style.display = 'none';
+    const modal = document.getElementById('manage-portfolio-modal');
+    if(modal) modal.style.display = 'none';
 }
 
 function loadAchievements() {
@@ -4486,6 +4532,7 @@ function loadAchievements() {
 
 function displayAchievements() {
     const container = document.getElementById('account-achievements-container');
+    if(!container) return;
     container.innerHTML = Object.values(ACHIEVEMENTS).map(achievement => `
         <div class="achievement-card ${achievement.unlocked ? 'unlocked' : 'locked'}">
             ${achievement.unlocked ? '<div class="achievement-badge">✓</div>' : ''}
@@ -4529,18 +4576,24 @@ function showAchievementNotification(achievement) {
 
 function loadLoyaltyData() {
     const saved = JSON.parse(localStorage.getItem('loyaltyData') || '{}');
-    Object.assign(LOYALTY_SYSTEM, saved);
+    LOYALTY_SYSTEM = { ...LOYALTY_SYSTEM, ...saved };
     updateLoyaltyDisplay();
 }
 
 function updateLoyaltyDisplay() {
-    document.getElementById('account-visits-count').textContent = LOYALTY_SYSTEM.visits;
-    document.getElementById('account-points-count').textContent = LOYALTY_SYSTEM.points;
-    document.getElementById('account-discount-percent').textContent = LOYALTY_SYSTEM.discount + '%';
+    const visitsSpan = document.getElementById('account-visits-count');
+    const pointsSpan = document.getElementById('account-points-count');
+    const discountSpan = document.getElementById('account-discount-percent');
+    const progressFill = document.getElementById('account-loyalty-progress');
+    const pointsToNextSpan = document.getElementById('account-points-to-next');
+    
+    if(visitsSpan) visitsSpan.textContent = LOYALTY_SYSTEM.visits;
+    if(pointsSpan) pointsSpan.textContent = LOYALTY_SYSTEM.points;
+    if(discountSpan) discountSpan.textContent = LOYALTY_SYSTEM.discount + '%';
     
     const progress = (LOYALTY_SYSTEM.points % 100) / 100 * 100;
-    document.getElementById('account-loyalty-progress').style.width = progress + '%';
-    document.getElementById('account-points-to-next').textContent = 100 - (LOYALTY_SYSTEM.points % 100);
+    if(progressFill) progressFill.style.width = progress + '%';
+    if(pointsToNextSpan) pointsToNextSpan.textContent = 100 - (LOYALTY_SYSTEM.points % 100);
 }
 
 function addLoyaltyPoints(points, reason) {
@@ -4579,17 +4632,18 @@ function showLevelUpNotification(level) {
 }
 
 function searchUser() {
-    const searchInput = document.getElementById('search-user-input').value.trim();
-    if (!searchInput) {
+    const searchInput = document.getElementById('search-user-input');
+    const query = searchInput ? searchInput.value.trim() : '';
+    if (!query) {
         alert('Введите данные для поиска');
         return;
     }
     
     const userDatabase = JSON.parse(localStorage.getItem('userDatabase') || '[]');
     const results = userDatabase.filter(user => 
-        user.phone.includes(searchInput) || 
-        user.email.includes(searchInput) ||
-        user.username.toLowerCase().includes(searchInput.toLowerCase())
+        user.phone.includes(query) || 
+        (user.email && user.email.includes(query)) ||
+        user.username.toLowerCase().includes(query.toLowerCase())
     );
     
     displayUserResults(results);
@@ -4597,6 +4651,7 @@ function searchUser() {
 
 function displayUserResults(users) {
     const resultsContainer = document.getElementById('user-search-results');
+    if(!resultsContainer) return;
     
     if (users.length === 0) {
         resultsContainer.innerHTML = '<div style="text-align: center; color: var(--muted); padding: 20px;">Пользователи не найдены</div>';
@@ -4606,8 +4661,8 @@ function displayUserResults(users) {
     resultsContainer.innerHTML = users.map(user => `
         <div class="user-result-item">
             <div>
-                <div style="font-weight: 600;">${user.username}</div>
-                <div style="font-size: 12px; color: var(--muted);">${user.phone} • ${user.email}</div>
+                <div style="font-weight: 600;">${escapeHtml(user.username)}</div>
+                <div style="font-size: 12px; color: var(--muted);">${escapeHtml(user.phone)} ${user.email ? '• ' + escapeHtml(user.email) : ''}</div>
                 <div style="font-size: 12px; color: var(--primary);">Посещений: <span class="visit-count">${user.visits || 0}</span>/100</div>
             </div>
             <div class="user-visit-controls">
@@ -4619,9 +4674,9 @@ function displayUserResults(users) {
 }
 
 function addUserVisit(userId) {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUserData = JSON.parse(localStorage.getItem('currentUser'));
     
-    if (!currentUser || !currentUser.devMode) {
+    if (!currentUserData || !currentUserData.devMode) {
         alert('Только администраторы могут добавлять посещения');
         return;
     }
@@ -4645,9 +4700,9 @@ function addUserVisit(userId) {
 }
 
 function removeUserVisit(userId) {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUserData = JSON.parse(localStorage.getItem('currentUser'));
     
-    if (!currentUser || !currentUser.devMode) {
+    if (!currentUserData || !currentUserData.devMode) {
         alert('Только администраторы могут удалять посещения');
         return;
     }
@@ -4674,10 +4729,15 @@ function submitAuthExtended() {
     const username = document.getElementById('username').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const password = document.getElementById('password').value;
-    const selectedAvatar = document.querySelector('.avatar-option.selected');
+    const selectedAvatar = document.querySelector('#avatar-selection .avatar-option.selected');
     
     if (!username || !phone || !password) {
         alert('Пожалуйста, заполните все поля');
+        return;
+    }
+    
+    if (username.length > 100) {
+        alert('Никнейм не должен превышать 100 символов');
         return;
     }
     
@@ -4700,7 +4760,9 @@ function submitAuthExtended() {
                 phone: devPhone,
                 username: DEV_ACCOUNTS[devPhone].name,
                 avatar: avatar,
-                id: generateUserId()
+                id: generateUserId(),
+                visits: 0,
+                points: 0
             };
             break;
         }
@@ -4708,7 +4770,8 @@ function submitAuthExtended() {
     
     if (isDevAccount) {
         setDevMode(devAccountData);
-        document.getElementById('auth-success').style.display = 'block';
+        const successMsg = document.getElementById('auth-success');
+        if(successMsg) successMsg.style.display = 'block';
         
         setTimeout(() => {
             closeAuthModal();
@@ -4754,16 +4817,21 @@ function submitAuthExtended() {
             password: password,
             avatar: avatar,
             registrationDate: new Date().toISOString(),
-            lastLogin: new Date().toISOString()
+            lastLogin: new Date().toISOString(),
+            visits: 0,
+            points: 0
         };
         
         users.push(userData);
         localStorage.setItem('users', JSON.stringify(users));
         localStorage.setItem('currentUser', JSON.stringify(userData));
         saveUserToDatabase(userData);
+        LOYALTY_SYSTEM = { visits: 0, points: 0, level: 1, discount: 0 };
+        localStorage.setItem('loyaltyData', JSON.stringify(LOYALTY_SYSTEM));
     }
     
-    document.getElementById('auth-success').style.display = 'block';
+    const successMsg = document.getElementById('auth-success');
+    if(successMsg) successMsg.style.display = 'block';
     
     setTimeout(() => {
         closeAuthModal();
@@ -4778,58 +4846,74 @@ function showWelcomeMessage(username, customGreeting = null) {
 }
 
 function updateAccountInfo() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUserData = JSON.parse(localStorage.getItem('currentUser'));
     
-    if (currentUser) {
-        document.getElementById('profile-avatar').textContent = currentUser.avatar;
-        document.getElementById('profile-username').textContent = currentUser.username;
-        document.getElementById('profile-phone').textContent = currentUser.phone;
+    if (currentUserData) {
+        const avatarEl = document.getElementById('profile-avatar');
+        const usernameEl = document.getElementById('profile-username');
+        const phoneEl = document.getElementById('profile-phone');
+        const joinedDateEl = document.getElementById('profile-joined-date');
         
-        const registrationDate = new Date(currentUser.registrationDate);
-        document.getElementById('profile-joined-date').textContent = registrationDate.toLocaleDateString('ru-RU');
+        if(avatarEl) avatarEl.textContent = currentUserData.avatar;
+        if(usernameEl) usernameEl.textContent = currentUserData.username;
+        if(phoneEl) phoneEl.textContent = currentUserData.phone;
         
-        const visits = LOYALTY_SYSTEM.visits || 0;
+        const registrationDate = new Date(currentUserData.registrationDate);
+        if(joinedDateEl) joinedDateEl.textContent = registrationDate.toLocaleDateString('ru-RU');
     }
 }
 
 function openChangeUsernameModal() {
-    document.getElementById('change-username-modal').style.display = 'flex';
+    const modal = document.getElementById('change-username-modal');
+    if(modal) modal.style.display = 'flex';
 }
 
 function closeChangeUsernameModal() {
-    document.getElementById('change-username-modal').style.display = 'none';
+    const modal = document.getElementById('change-username-modal');
+    if(modal) modal.style.display = 'none';
 }
 
 function changeUsername() {
     const newUsername = document.getElementById('new-username').value.trim();
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUserData = JSON.parse(localStorage.getItem('currentUser'));
     
     if (!newUsername) {
         alert('Пожалуйста, введите новый никнейм');
         return;
     }
     
-    if (newUsername === currentUser.username) {
+    if (newUsername.length > 100) {
+        alert('Никнейм не должен превышать 100 символов');
+        return;
+    }
+    
+    if (newUsername === currentUserData.username) {
         alert('Этот никнейм уже используется');
         return;
     }
     
     const users = JSON.parse(localStorage.getItem('users') || '[]');
-    if (users.find(user => user.username === newUsername && user.id !== currentUser.id)) {
+    if (users.find(user => user.username === newUsername && user.id !== currentUserData.id)) {
         alert('Этот никнейм уже занят. Пожалуйста, выберите другой.');
         return;
     }
     
-    const userIndex = users.findIndex(user => user.id === currentUser.id);
+    const userIndex = users.findIndex(user => user.id === currentUserData.id);
     if (userIndex !== -1) {
         users[userIndex].username = newUsername;
         localStorage.setItem('users', JSON.stringify(users));
     }
     
-    currentUser.username = newUsername;
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    currentUserData.username = newUsername;
+    localStorage.setItem('currentUser', JSON.stringify(currentUserData));
     
-    document.getElementById('change-username-success').style.display = 'block';
+    const userDatabase = JSON.parse(localStorage.getItem('userDatabase') || '[]');
+    const dbIndex = userDatabase.findIndex(u => u.id === currentUserData.id);
+    if(dbIndex !== -1) userDatabase[dbIndex].username = newUsername;
+    localStorage.setItem('userDatabase', JSON.stringify(userDatabase));
+    
+    const successMsg = document.getElementById('change-username-success');
+    if(successMsg) successMsg.style.display = 'block';
     
     setTimeout(() => {
         closeChangeUsernameModal();
@@ -4839,11 +4923,12 @@ function changeUsername() {
 }
 
 function openChangeAvatarModal() {
-    document.getElementById('change-avatar-modal').style.display = 'flex';
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser && currentUser.avatar) {
+    const modal = document.getElementById('change-avatar-modal');
+    if(modal) modal.style.display = 'flex';
+    const currentUserData = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUserData && currentUserData.avatar) {
         document.querySelectorAll('#avatar-selection-modal .avatar-option').forEach(option => {
-            if (option.getAttribute('data-avatar') === currentUser.avatar) {
+            if (option.getAttribute('data-avatar') === currentUserData.avatar) {
                 option.classList.add('selected');
             }
         });
@@ -4851,7 +4936,8 @@ function openChangeAvatarModal() {
 }
 
 function closeChangeAvatarModal() {
-    document.getElementById('change-avatar-modal').style.display = 'none';
+    const modal = document.getElementById('change-avatar-modal');
+    if(modal) modal.style.display = 'none';
 }
 
 function changeAvatar() {
@@ -4862,27 +4948,28 @@ function changeAvatar() {
     }
     
     const newAvatar = selectedAvatar.getAttribute('data-avatar');
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUserData = JSON.parse(localStorage.getItem('currentUser'));
     
-    if (currentUser) {
-        currentUser.avatar = newAvatar;
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    if (currentUserData) {
+        currentUserData.avatar = newAvatar;
+        localStorage.setItem('currentUser', JSON.stringify(currentUserData));
         
         const users = JSON.parse(localStorage.getItem('users') || '[]');
-        const userIndex = users.findIndex(user => user.id === currentUser.id);
+        const userIndex = users.findIndex(user => user.id === currentUserData.id);
         if (userIndex !== -1) {
             users[userIndex].avatar = newAvatar;
             localStorage.setItem('users', JSON.stringify(users));
         }
         
         const userDatabase = JSON.parse(localStorage.getItem('userDatabase') || '[]');
-        const dbUserIndex = userDatabase.findIndex(user => user.id === currentUser.id);
+        const dbUserIndex = userDatabase.findIndex(user => user.id === currentUserData.id);
         if (dbUserIndex !== -1) {
             userDatabase[dbUserIndex].avatar = newAvatar;
             localStorage.setItem('userDatabase', JSON.stringify(userDatabase));
         }
         
-        document.getElementById('change-avatar-success').style.display = 'block';
+        const successMsg = document.getElementById('change-avatar-success');
+        if(successMsg) successMsg.style.display = 'block';
         
         setTimeout(() => {
             closeChangeAvatarModal();
@@ -4896,12 +4983,14 @@ function toggleAchievements() {
     const achievementsSection = document.getElementById('achievements-section');
     const toggleButton = document.querySelector('.achievements-toggle');
     
-    if (achievementsSection.style.display === 'none') {
-        achievementsSection.style.display = 'block';
-        toggleButton.textContent = 'Скрыть достижения';
-    } else {
-        achievementsSection.style.display = 'none';
-        toggleButton.textContent = 'Показать достижения';
+    if (achievementsSection && toggleButton) {
+        if (achievementsSection.style.display === 'none') {
+            achievementsSection.style.display = 'block';
+            toggleButton.textContent = 'Скрыть достижения';
+        } else {
+            achievementsSection.style.display = 'none';
+            toggleButton.textContent = 'Показать достижения';
+        }
     }
 }
 
@@ -4921,6 +5010,7 @@ function initExpandedPortfolio() {
   ];
 
   const container = document.getElementById('expanded-portfolio-grid');
+  if(!container) return;
   container.innerHTML = '';
   
   gifData.forEach((gif, index) => {
@@ -4929,7 +5019,7 @@ function initExpandedPortfolio() {
     const gifElement = document.createElement('div');
     gifElement.className = 'expanded-portfolio-item';
     gifElement.innerHTML = `
-      <img src="${gif.url}" class="expanded-portfolio-gif" alt="Nails design ${index + 1}" loading="lazy">
+      <img src="${escapeHtml(gif.url)}" class="expanded-portfolio-gif" alt="Nails design ${index + 1}" loading="lazy">
       <div class="expanded-portfolio-likes">
         <i class="fas fa-heart" style="color: var(--accent);"></i> ${likes}
       </div>
@@ -4937,7 +5027,7 @@ function initExpandedPortfolio() {
         Записаться
       </button>
       <div class="expanded-portfolio-text">
-        <div class="animated-text">${gif.text}</div>
+        <div class="animated-text">${escapeHtml(gif.text)}</div>
       </div>
     `;
     
@@ -4949,20 +5039,23 @@ function toggleExpandedPortfolio() {
   const expandedPortfolio = document.getElementById('expanded-portfolio');
   const expandBtn = document.querySelector('.expand-portfolio-btn');
   
-  if (expandedPortfolio.style.display === 'none' || !expandedPortfolio.style.display) {
-    expandedPortfolio.style.display = 'block';
-    expandBtn.innerHTML = '<i class="fas fa-compress"></i> Скрыть';
-    expandBtn.style.background = 'rgba(217,182,176,0.2)';
-  } else {
-    expandedPortfolio.style.display = 'none';
-    expandBtn.innerHTML = '<i class="fas fa-arrows-alt"></i> Раскрыть все';
-    expandBtn.style.background = 'rgba(255,255,255,0.7)';
+  if (expandedPortfolio && expandBtn) {
+    if (expandedPortfolio.style.display === 'none' || !expandedPortfolio.style.display) {
+      expandedPortfolio.style.display = 'block';
+      expandBtn.innerHTML = '<i class="fas fa-compress"></i> Скрыть';
+      expandBtn.style.background = 'rgba(217,182,176,0.2)';
+    } else {
+      expandedPortfolio.style.display = 'none';
+      expandBtn.innerHTML = '<i class="fas fa-arrows-alt"></i> Раскрыть все';
+      expandBtn.style.background = 'rgba(255,255,255,0.7)';
+    }
   }
 }
 
 // ===== ФУНКЦИИ ДЛЯ ОСНОВНОГО ИНТЕРФЕЙСА =====
 function createBackgroundElements(){
   const cont = document.getElementById('lightning-bg');
+  if(!cont) return;
   
   for(let i=0; i<30; i++){
     const el = document.createElement('div');
@@ -5050,43 +5143,61 @@ function initUI() {
 }
 
 function updateUIForLoggedInUser() {
-  document.getElementById('userInfo').style.display = 'block';
-  document.getElementById('userName').textContent = currentUser;
-  document.getElementById('auth-menu-text').textContent = 'Профиль';
-  document.getElementById('account-button').style.display = 'block';
-  document.getElementById('auth-button').style.display = 'none';
+  const userInfo = document.getElementById('userInfo');
+  const userNameSpan = document.getElementById('userName');
+  const authMenuText = document.getElementById('auth-menu-text');
+  const accountBtn = document.getElementById('account-button');
+  const authBtn = document.getElementById('auth-button');
+  
+  if(userInfo) userInfo.style.display = 'block';
+  if(userNameSpan) userNameSpan.textContent = currentUser;
+  if(authMenuText) authMenuText.textContent = 'Профиль';
+  if(accountBtn) accountBtn.style.display = 'block';
+  if(authBtn) authBtn.style.display = 'none';
 }
 
 function updateUIForGuest() {
-  document.getElementById('userInfo').style.display = 'none';
-  document.getElementById('auth-menu-text').textContent = 'Вход';
-  document.getElementById('account-button').style.display = 'none';
-  document.getElementById('auth-button').style.display = 'block';
+  const userInfo = document.getElementById('userInfo');
+  const authMenuText = document.getElementById('auth-menu-text');
+  const accountBtn = document.getElementById('account-button');
+  const authBtn = document.getElementById('auth-button');
+  
+  if(userInfo) userInfo.style.display = 'none';
+  if(authMenuText) authMenuText.textContent = 'Вход';
+  if(accountBtn) accountBtn.style.display = 'none';
+  if(authBtn) authBtn.style.display = 'block';
 }
 
 const searchInput=document.getElementById('search-input');
-const searchResults=document.getElementById('search-results');
+const searchResultsDiv=document.getElementById('search-results');
 
-searchInput.addEventListener('input',function(){
-  const query=this.value.toLowerCase().trim();
-  searchResults.innerHTML='';
-  if(query.length<2){searchResults.style.display='none';return;}
-  const filtered=searchData.filter(item=>item.title.toLowerCase().includes(query)||(item.description && item.description.toLowerCase().includes(query))||item.price.toLowerCase().includes(query));
-  if(filtered.length>0){
-    filtered.forEach(item=>{
-      const div=document.createElement('div');div.className='search-result-item';
-      div.innerHTML=`<div class="search-result-title">${item.title}</div><div class="search-result-price">${item.price}</div><div class="search-result-type">${item.type}</div>${item.description?`<div style="font-size:12px;color:var(--muted);margin-top:3px;">${item.description}</div>`:''}`;
-      div.addEventListener('click',function(){searchInput.value=item.title;searchResults.style.display='none';if(item.type==='услуга')openBookingModal(item.title);});
-      searchResults.appendChild(div);
-    });
-    searchResults.style.display='block';
-  } else searchResults.style.display='none';
-});
-document.addEventListener('click',function(e){if(!e.target.closest('.search-container'))searchResults.style.display='none';});
+if(searchInput) {
+  searchInput.addEventListener('input',function(){
+    const query=this.value.toLowerCase().trim();
+    if(searchResultsDiv) searchResultsDiv.innerHTML='';
+    if(query.length<2){if(searchResultsDiv) searchResultsDiv.style.display='none';return;}
+    const filtered=searchData.filter(item=>item.title.toLowerCase().includes(query)||(item.description && item.description.toLowerCase().includes(query))||item.price.toLowerCase().includes(query));
+    if(filtered.length>0 && searchResultsDiv){
+      filtered.forEach(item=>{
+        const div=document.createElement('div');div.className='search-result-item';
+        div.innerHTML=`<div class="search-result-title">${escapeHtml(item.title)}</div><div class="search-result-price">${escapeHtml(item.price)}</div><div class="search-result-type">${escapeHtml(item.type)}</div>${item.description?`<div style="font-size:12px;color:var(--muted);margin-top:3px;">${escapeHtml(item.description)}</div>`:''}`;
+        div.addEventListener('click',function(){if(searchInput) searchInput.value=item.title;if(searchResultsDiv) searchResultsDiv.style.display='none';if(item.type==='услуга')openBookingModal(item.title);});
+        searchResultsDiv.appendChild(div);
+      });
+      searchResultsDiv.style.display='block';
+    } else if(searchResultsDiv) searchResultsDiv.style.display='none';
+  });
+}
+document.addEventListener('click',function(e){if(!e.target.closest('.search-container') && searchResultsDiv)searchResultsDiv.style.display='none';});
 
-const modal=document.getElementById('booking-modal');
-const closeModal=document.querySelector('.close-modal');
-function openBookingModal(service=''){if(service){modal.querySelector('h2').textContent=`Записаться на ${service}`;}modal.style.display='flex';}
+const modalBooking = document.getElementById('booking-modal');
+const closeModalBtn = document.querySelector('.close-modal');
+function openBookingModal(service=''){
+  if(modalBooking){
+    if(service) modalBooking.querySelector('h2').textContent=`Записаться на ${service}`;
+    modalBooking.style.display='flex';
+  }
+}
 
 document.addEventListener('click', function(e) {
   if (e.target.closest('.note')) {
@@ -5095,23 +5206,26 @@ document.addEventListener('click', function(e) {
   }
 });
 
-closeModal.addEventListener('click',()=>modal.style.display='none');
-window.addEventListener('click',e=>{if(e.target===modal)modal.style.display='none';});
+if(closeModalBtn) closeModalBtn.addEventListener('click',()=>{if(modalBooking) modalBooking.style.display='none';});
+window.addEventListener('click',e=>{if(e.target===modalBooking && modalBooking) modalBooking.style.display='none';});
 
 function scrollToSection(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'});}
-document.querySelector('.portfolio-grid').parentElement.parentElement.id='portfolio';
+const portfolioPaper = document.querySelector('.portfolio-grid')?.parentElement?.parentElement;
+if(portfolioPaper) portfolioPaper.id = 'portfolio';
 
 const draggableMenu = document.getElementById('draggable-menu');
 let isDragging = false;
-let currentX;
-let currentY;
-let initialX;
-let initialY;
+let currentX = 0;
+let currentY = 0;
+let initialX = 0;
+let initialY = 0;
 let xOffset = 0;
 let yOffset = 0;
 
-draggableMenu.addEventListener("mousedown", dragStart);
-draggableMenu.addEventListener("touchstart", dragStart);
+if(draggableMenu) {
+  draggableMenu.addEventListener("mousedown", dragStart);
+  draggableMenu.addEventListener("touchstart", dragStart);
+}
 
 function dragStart(e) {
   if (e.type === "touchstart") {
@@ -5124,7 +5238,8 @@ function dragStart(e) {
 
   if (e.target === draggableMenu || e.target === document.getElementById('menu-button')) {
     isDragging = true;
-    document.getElementById('menu-dropdown').style.display = 'none';
+    const menuDropdown = document.getElementById('menu-dropdown');
+    if(menuDropdown) menuDropdown.style.display = 'none';
   }
 }
 
@@ -5132,7 +5247,7 @@ document.addEventListener("mousemove", drag);
 document.addEventListener("touchmove", drag);
 
 function drag(e) {
-  if (isDragging) {
+  if (isDragging && draggableMenu) {
     e.preventDefault();
     if (e.type === "touchmove") {
       currentX = e.touches[0].clientX - initialX;
@@ -5157,94 +5272,122 @@ function dragEnd(e) {
 }
 
 function setTranslate(xPos, yPos, el) {
-  el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+  if(el) el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
 }
 
-const menuButton = document.getElementById('menu-button');
+const menuBtn = document.getElementById('menu-button');
 const menuDropdown = document.getElementById('menu-dropdown');
-const authButton = document.getElementById('auth-button');
-const accountButton = document.getElementById('account-button');
-const fortuneButton = document.getElementById('fortune-button');
-const reviewButton = document.getElementById('review-button');
-const promoButton = document.getElementById('promo-button');
-const pollsButton = document.getElementById('polls-button');
-const contestsButton = document.getElementById('contests-button');
-const pricesButton = document.getElementById('prices-button');
-const searchUserButton = document.getElementById('search-user-button');
-const managePollsButton = document.getElementById('manage-polls-button');
-const manageContestsButton = document.getElementById('manage-contests-button');
-const manageReviewsButton = document.getElementById('manage-reviews-button');
-const managePortfolioButton = document.getElementById('manage-portfolio-button');
+const authBtn = document.getElementById('auth-button');
+const accountBtnMenu = document.getElementById('account-button');
+const fortuneBtn = document.getElementById('fortune-button');
+const reviewBtn = document.getElementById('review-button');
+const promoBtn = document.getElementById('promo-button');
+const pollsBtn = document.getElementById('polls-button');
+const contestsBtn = document.getElementById('contests-button');
+const pricesBtn = document.getElementById('prices-button');
+const searchUserBtn = document.getElementById('search-user-button');
+const managePollsBtn = document.getElementById('manage-polls-button');
+const manageContestsBtn = document.getElementById('manage-contests-button');
+const manageReviewsBtn = document.getElementById('manage-reviews-button');
+const managePortfolioBtn = document.getElementById('manage-portfolio-button');
 
-menuButton.addEventListener('click', function(e) {
-  e.stopPropagation();
-  menuDropdown.style.display = menuDropdown.style.display === 'block' ? 'none' : 'block';
-});
+if(menuBtn) {
+  menuBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if(menuDropdown) menuDropdown.style.display = menuDropdown.style.display === 'block' ? 'none' : 'block';
+  });
+}
 
 document.addEventListener('click', function() {
-  menuDropdown.style.display = 'none';
+  if(menuDropdown) menuDropdown.style.display = 'none';
 });
 
-authButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openAuthModal(); });
-accountButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openAccountModal(); });
-fortuneButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openFortuneModal(); });
-reviewButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openReviewModal(); });
-promoButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openPromoModal(); });
-pollsButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openPollsModal(); });
-contestsButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openContestsModal(); });
-pricesButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openPricesModal(); });
-searchUserButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openSearchUserModal(); });
-managePollsButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openManagePollsModal(); });
-manageContestsButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openManageContestsModal(); });
-manageReviewsButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openManageReviewsModal(); });
-managePortfolioButton.addEventListener('click', function() { menuDropdown.style.display = 'none'; openManagePortfolioModal(); });
+if(authBtn) authBtn.addEventListener('click', function() { if(menuDropdown) menuDropdown.style.display = 'none'; openAuthModal(); });
+if(accountBtnMenu) accountBtnMenu.addEventListener('click', function() { if(menuDropdown) menuDropdown.style.display = 'none'; openAccountModal(); });
+if(fortuneBtn) fortuneBtn.addEventListener('click', function() { if(menuDropdown) menuDropdown.style.display = 'none'; openFortuneModal(); });
+if(reviewBtn) reviewBtn.addEventListener('click', function() { if(menuDropdown) menuDropdown.style.display = 'none'; openReviewModal(); });
+if(promoBtn) promoBtn.addEventListener('click', function() { if(menuDropdown) menuDropdown.style.display = 'none'; openPromoModal(); });
+if(pollsBtn) pollsBtn.addEventListener('click', function() { if(menuDropdown) menuDropdown.style.display = 'none'; openPollsModal(); });
+if(contestsBtn) contestsBtn.addEventListener('click', function() { if(menuDropdown) menuDropdown.style.display = 'none'; openContestsModal(); });
+if(pricesBtn) pricesBtn.addEventListener('click', function() { if(menuDropdown) menuDropdown.style.display = 'none'; openPricesModal(); });
+if(searchUserBtn) searchUserBtn.addEventListener('click', function() { if(menuDropdown) menuDropdown.style.display = 'none'; openSearchUserModal(); });
+if(managePollsBtn) managePollsBtn.addEventListener('click', function() { if(menuDropdown) menuDropdown.style.display = 'none'; openManagePollsModal(); });
+if(manageContestsBtn) manageContestsBtn.addEventListener('click', function() { if(menuDropdown) menuDropdown.style.display = 'none'; openManageContestsModal(); });
+if(manageReviewsBtn) manageReviewsBtn.addEventListener('click', function() { if(menuDropdown) menuDropdown.style.display = 'none'; openManageReviewsModal(); });
+if(managePortfolioBtn) managePortfolioBtn.addEventListener('click', function() { if(menuDropdown) menuDropdown.style.display = 'none'; openManagePortfolioModal(); });
 
-function openAuthModal() { if (isLoggedIn) { alert(`Вы уже авторизованы как ${currentUser}`); return; } document.getElementById('auth-modal').style.display = 'flex'; }
-function closeAuthModal() { document.getElementById('auth-modal').style.display = 'none'; }
-function openAccountModal() { document.getElementById('account-modal').style.display = 'flex'; }
-function closeAccountModal() { document.getElementById('account-modal').style.display = 'none'; }
-function openPollsModal() { document.getElementById('polls-modal').style.display = 'flex'; }
-function closePollsModal() { document.getElementById('polls-modal').style.display = 'none'; }
-function openContestsModal() { document.getElementById('contests-modal').style.display = 'flex'; }
-function closeContestsModal() { document.getElementById('contests-modal').style.display = 'none'; }
-function openSearchUserModal() { document.getElementById('search-user-modal').style.display = 'flex'; }
-function closeSearchUserModal() { document.getElementById('search-user-modal').style.display = 'none'; }
+function openAuthModal() { if (isLoggedIn) { alert(`Вы уже авторизованы как ${currentUser}`); return; } const modal = document.getElementById('auth-modal'); if(modal) modal.style.display = 'flex'; }
+function closeAuthModal() { const modal = document.getElementById('auth-modal'); if(modal) modal.style.display = 'none'; }
+function openAccountModal() { const modal = document.getElementById('account-modal'); if(modal) modal.style.display = 'flex'; }
+function closeAccountModal() { const modal = document.getElementById('account-modal'); if(modal) modal.style.display = 'none'; }
+function openPollsModal() { const modal = document.getElementById('polls-modal'); if(modal) modal.style.display = 'flex'; }
+function closePollsModal() { const modal = document.getElementById('polls-modal'); if(modal) modal.style.display = 'none'; }
+function openContestsModal() { const modal = document.getElementById('contests-modal'); if(modal) modal.style.display = 'flex'; }
+function closeContestsModal() { const modal = document.getElementById('contests-modal'); if(modal) modal.style.display = 'none'; }
+function openSearchUserModal() { const modal = document.getElementById('search-user-modal'); if(modal) modal.style.display = 'flex'; }
+function closeSearchUserModal() { const modal = document.getElementById('search-user-modal'); if(modal) modal.style.display = 'none'; }
 
-function logout() { currentUser = null; isLoggedIn = false; localStorage.removeItem("currentUser"); updateUIForGuest(); alert("Вы вышли из системы"); }
+function logout() { currentUser = null; isLoggedIn = false; localStorage.removeItem("currentUser"); updateUIForGuest(); alert("Вы вышли из системы"); window.location.reload(); }
 
 function openFortuneModal() {
-  document.getElementById('fortune-modal').style.display = 'flex';
+  const modal = document.getElementById('fortune-modal');
+  if(modal) modal.style.display = 'flex';
   if (isLoggedIn) {
-    document.getElementById('fortune-content').style.display = 'block';
-    document.getElementById('fortune-locked').style.display = 'none';
+    const fortuneContent = document.getElementById('fortune-content');
+    const fortuneLocked = document.getElementById('fortune-locked');
+    if(fortuneContent) fortuneContent.style.display = 'block';
+    if(fortuneLocked) fortuneLocked.style.display = 'none';
     createWheel();
   } else {
-    document.getElementById('fortune-content').style.display = 'none';
-    document.getElementById('fortune-locked').style.display = 'block';
+    const fortuneContent = document.getElementById('fortune-content');
+    const fortuneLocked = document.getElementById('fortune-locked');
+    if(fortuneContent) fortuneContent.style.display = 'none';
+    if(fortuneLocked) fortuneLocked.style.display = 'block';
   }
 }
 
-function closeFortuneModal() { document.getElementById('fortune-modal').style.display = 'none'; document.getElementById('wheel-inner').style.transform = 'rotate(0deg)'; document.getElementById('result-message').style.display = 'none'; document.getElementById('spin-button').disabled = false; document.getElementById('spin-button').style.display = 'block'; document.getElementById('claim-button').style.display = 'none'; }
-
-function openPrizeModal(prize) {
-  document.getElementById('prize-icon').textContent = prize.icon;
-  document.getElementById('prize-description').textContent = `Вы выиграли: ${prize.name} (скидка ${prize.discount}%)`;
-  const exchangeButton = document.getElementById('exchange-prize-button');
-  const discountSpan = document.getElementById('exchange-discount-value');
-  discountSpan.textContent = prize.discount + '%';
-  exchangeButton.onclick = function() { exchangePrizeForDiscount(prize.discount); };
-  document.getElementById('prize-modal').style.display = 'flex';
+function closeFortuneModal() { 
+  const modal = document.getElementById('fortune-modal');
+  if(modal) modal.style.display = 'none'; 
+  const wheelInner = document.getElementById('wheel-inner');
+  if(wheelInner) wheelInner.style.transform = 'rotate(0deg)';
+  const resultMsg = document.getElementById('result-message');
+  if(resultMsg) resultMsg.style.display = 'none';
+  const spinBtn = document.getElementById('spin-button');
+  if(spinBtn) spinBtn.disabled = false;
+  if(spinBtn) spinBtn.style.display = 'block';
+  const claimBtn = document.getElementById('claim-button');
+  if(claimBtn) claimBtn.style.display = 'none';
 }
 
-function closePrizeModal() { document.getElementById('prize-modal').style.display = 'none'; closeFortuneModal(); }
+function openPrizeModal(prize) {
+  const prizeIcon = document.getElementById('prize-icon');
+  const prizeDesc = document.getElementById('prize-description');
+  const exchangeBtn = document.getElementById('exchange-prize-button');
+  const discountSpan = document.getElementById('exchange-discount-value');
+  const prizeModal = document.getElementById('prize-modal');
+  
+  if(prizeIcon) prizeIcon.textContent = prize.icon;
+  if(prizeDesc) prizeDesc.textContent = `Вы выиграли: ${prize.name} (скидка ${prize.discount}%)`;
+  if(discountSpan) discountSpan.textContent = prize.discount + '%';
+  if(exchangeBtn) exchangeBtn.onclick = function() { exchangePrizeForDiscount(prize.discount); };
+  if(prizeModal) prizeModal.style.display = 'flex';
+}
+
+function closePrizeModal() { 
+  const modal = document.getElementById('prize-modal');
+  if(modal) modal.style.display = 'none'; 
+  closeFortuneModal(); 
+}
 function exchangePrizeForDiscount(discount) { alert(`🎉 Поздравляем! Вы обменяли подарок на скидку ${discount}%! (В реальном проекте здесь будет логика применения скидки)`); closePrizeModal(); }
-function openReviewModal() { document.getElementById('review-modal').style.display = 'flex'; }
-function closeReviewModal() { document.getElementById('review-modal').style.display = 'none'; document.getElementById('modal-review-success').style.display = 'none'; }
-function openPromoModal() { document.getElementById('promo-modal').style.display = 'flex'; }
-function closePromoModal() { document.getElementById('promo-modal').style.display = 'none'; }
+function openReviewModal() { const modal = document.getElementById('review-modal'); if(modal) modal.style.display = 'flex'; }
+function closeReviewModal() { const modal = document.getElementById('review-modal'); if(modal) modal.style.display = 'none'; const successMsg = document.getElementById('modal-review-success'); if(successMsg) successMsg.style.display = 'none'; }
+function openPromoModal() { const modal = document.getElementById('promo-modal'); if(modal) modal.style.display = 'flex'; }
+function closePromoModal() { const modal = document.getElementById('promo-modal'); if(modal) modal.style.display = 'none'; }
 
 function createWheel() {
   const wheelInner = document.getElementById('wheel-inner');
+  if(!wheelInner) return;
   wheelInner.innerHTML = '';
   let currentAngle = 0;
   const angleStep = 360 / fortunePrizes.length;
@@ -5255,18 +5398,19 @@ function createWheel() {
     segment.style.transform = `rotate(${currentAngle}deg)`;
     const content = document.createElement('div');
     content.className = 'segment-content';
-    content.innerHTML = `${prize.icon}<br><span style="font-size:12px;">${prize.name}</span><span class="segment-discount">скидка ${prize.discount}%</span>`;
+    content.innerHTML = `${prize.icon}<br><span style="font-size:12px;">${escapeHtml(prize.name)}</span><span class="segment-discount">скидка ${prize.discount}%</span>`;
     segment.appendChild(content);
     wheelInner.appendChild(segment);
     currentAngle += angleStep;
   });
 }
 
-document.getElementById('spin-button').addEventListener('click', function() {
+document.getElementById('spin-button')?.addEventListener('click', function() {
   if (!isLoggedIn) { alert("Для использования колеса фортуны необходимо авторизоваться!"); openAuthModal(); return; }
   const spinButton = document.getElementById('spin-button');
   const wheelInner = document.getElementById('wheel-inner');
-  spinButton.disabled = true;
+  if(spinButton) spinButton.disabled = true;
+  
   const totalWeight = fortunePrizes.reduce((sum, prize) => sum + prize.weight, 0);
   let randomValue = Math.random() * totalWeight;
   let selectedPrizeIndex = 0;
@@ -5279,9 +5423,11 @@ document.getElementById('spin-button').addEventListener('click', function() {
   const spins = 5 + Math.floor(Math.random() * 5);
   const finalAngle = spins * 360 + (360 - (selectedPrizeIndex * segmentAngle + segmentAngle / 2));
   const duration = 4000 + Math.random() * 2000;
-  wheelInner.style.transition = `transform ${duration/1000}s cubic-bezier(0.2, 0.8, 0.3, 1)`;
-  wheelInner.style.transform = `rotate(${finalAngle}deg)`;
-  setTimeout(() => { openPrizeModal(fortunePrizes[selectedPrizeIndex]); createConfetti(); addLoyaltyPoints(30, 'Выигрыш в колесе фортуны'); }, duration);
+  if(wheelInner) {
+    wheelInner.style.transition = `transform ${duration/1000}s cubic-bezier(0.2, 0.8, 0.3, 1)`;
+    wheelInner.style.transform = `rotate(${finalAngle}deg)`;
+  }
+  setTimeout(() => { openPrizeModal(fortunePrizes[selectedPrizeIndex]); createConfetti(); addLoyaltyPoints(30, 'Выигрыш в колесе фортуны'); if(spinButton) spinButton.disabled = false; }, duration);
 });
 
 function createConfetti() {
@@ -5306,8 +5452,11 @@ function createConfetti() {
 }
 
 function checkPromo(){
-  const val = document.getElementById('modal-promoKey').value.trim().toLowerCase();
+  const valInput = document.getElementById('modal-promoKey');
+  if(!valInput) return;
+  const val = valInput.value.trim().toLowerCase();
   const promoBox = document.getElementById('modal-promoList');
+  if(!promoBox) return;
   promoBox.innerHTML = '';
   if (!keys[val]) return promoBox.innerHTML = "<div class='promo-item' style='color:red;text-align:center;'>Неверный ключ ❌</div>";
   keys[val].forEach((i,idx) => {
@@ -5330,6 +5479,18 @@ function checkPromo(){
 }
 
 function showSuccessMessage(message) { alert(message); }
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+    }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+        return c;
+    });
+}
 
 // ===== ИНИЦИАЛИЗАЦИЯ ВЫБОРА АВАТАРА =====
 document.addEventListener('DOMContentLoaded', function() {
